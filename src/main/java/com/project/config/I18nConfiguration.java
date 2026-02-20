@@ -17,6 +17,7 @@ public class I18nConfiguration {
 	return messageSource;
 	}
 	
+	
 	//사용자의 언어 설정을 HTTP 세션(Session) 영역에 저장.
 	@Bean
 	LocaleResolver localeResolver() {
