@@ -12,6 +12,7 @@
 <script type="text/javascript" src="/js/test.js"></script>
 <link rel="stylesheet" href="/css/style.css">
 -->
+<link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
