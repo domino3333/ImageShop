@@ -9,5 +9,13 @@ public interface CodeGroupMapper {
 	public int create(CodeGroup codeGroup) throws Exception;
 	// 목록 페이지
 	public List<CodeGroup> list() throws Exception;
+	
+	// 상세 페이지
+	public CodeGroup read(CodeGroup groupCode) throws Exception;
+	
+	// 삭제 처리
+	public int delete(CodeGroup groupCode) throws Exception;
+
+	
 
 }

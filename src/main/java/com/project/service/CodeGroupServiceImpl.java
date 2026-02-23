@@ -11,7 +11,6 @@ import com.project.mapper.CodeGroupMapper;
 @Service
 public class CodeGroupServiceImpl implements CodeGroupService {
 
-	
 	@Autowired
 	private CodeGroupMapper mapper;
 
@@ -24,5 +23,17 @@ public class CodeGroupServiceImpl implements CodeGroupService {
 	public List<CodeGroup> list() throws Exception {
 		return mapper.list();
 	}
-	
+
+	// 상세 페이지
+	@Override
+	public CodeGroup read(CodeGroup groupCode) throws Exception {
+		return mapper.read(groupCode);
+	}
+
+	@Override
+	public int remove(CodeGroup groupCode) throws Exception {
+		
+		return mapper.delete(groupCode);
+	}
+
 }

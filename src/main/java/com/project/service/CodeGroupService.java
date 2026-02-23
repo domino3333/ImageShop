@@ -11,5 +11,12 @@ public interface CodeGroupService {
 
 	// 목록 페이지
 	public List<CodeGroup> list() throws Exception;
+	
+	// 상세 페이지
+	public CodeGroup read(CodeGroup groupCode) throws Exception;
+	
+	// 삭제 처리
+	public int remove(CodeGroup groupCode) throws Exception;
+
 
 }

@@ -11,7 +11,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.domain.CodeGroup;
 import com.project.service.CodeGroupService;
 
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -46,8 +45,30 @@ public class CodeGroupController {
 	// 목록 페이지
 	@GetMapping("/list")
 	public void list(Model model) throws Exception {
-		log.info("model.getAttribute(msg) : "+model.getAttribute("msg"));
+		log.info("model.getAttribute(msg) : " + model.getAttribute("msg"));
 		model.addAttribute("list", service.list());
+	}
+
+	// 상세 페이지
+	@GetMapping("/read")
+	public void read(CodeGroup groupCode, Model model) throws Exception {
+		model.addAttribute(service.read(groupCode));
+	}
+
+	// 코드 그룹 삭제 처리
+	@PostMapping("/remove")
+	public String remove(CodeGroup groupCode, RedirectAttributes rttr) throws Exception {
+		int count = service.remove(groupCode);
+		
+		if (count != 0) {
+			// 세션에 정보를 임시 저장한다.
+			rttr.addFlashAttribute("msg", "SUCCESS");
+		}else {
+			rttr.addFlashAttribute("msg", "FAIL");
+			
+		}
+		return "redirect:/codegroup/list";
+		
 	}
 
 }
