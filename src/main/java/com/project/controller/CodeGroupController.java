@@ -59,16 +59,36 @@ public class CodeGroupController {
 	@PostMapping("/remove")
 	public String remove(CodeGroup groupCode, RedirectAttributes rttr) throws Exception {
 		int count = service.remove(groupCode);
+
+		if (count != 0) {
+			// 세션에 정보를 임시 저장한다.
+			rttr.addFlashAttribute("msg", "SUCCESS");
+		} else {
+			rttr.addFlashAttribute("msg", "FAIL");
+
+		}
+		return "redirect:/codegroup/list";
+	}
+
+	// 수정 페이지
+	@GetMapping("/modify")
+	public void modifyForm(CodeGroup groupCode, Model model) throws Exception {
+		model.addAttribute(service.read(groupCode));
+	}
+
+	// 코드 그룹 수정완료 요청을 받는 컨트롤러
+	@PostMapping("/modify")
+	public String modifyForm2(CodeGroup groupCode, RedirectAttributes rttr) throws Exception {
+		int count = service.modify(groupCode);
 		
 		if (count != 0) {
 			// 세션에 정보를 임시 저장한다.
 			rttr.addFlashAttribute("msg", "SUCCESS");
-		}else {
+		} else {
 			rttr.addFlashAttribute("msg", "FAIL");
-			
+
 		}
 		return "redirect:/codegroup/list";
-		
 	}
 
 }

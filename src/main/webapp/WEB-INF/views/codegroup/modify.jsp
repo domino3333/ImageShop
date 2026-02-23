@@ -16,9 +16,10 @@
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
 	<div align="center">
 		<h2>
-			<spring:message code="codegroup.header.register" />
+			<spring:message code="codegroup.header.modify" />
 		</h2>
-		<form:form id="codeGroup" modelAttribute="codeGroup">
+		<form:form id="codeGroup" modelAttribute="codeGroup"
+			action="/codegroup/modify" method="post">
 			<table>
 				<tr>
 					<td><spring:message code="codegroup.groupCode" /></td>
@@ -27,16 +28,13 @@
 				</tr>
 				<tr>
 					<td><spring:message code="codegroup.groupName" /></td>
-					<td><form:input path="groupName" readonly="true" /></td>
+					<td><form:input path="groupName"/></td>
 					<td><font color="red"><form:errors path="groupName" /></font></td>
 				</tr>
 			</table>
 			<div>
-				<button type="button" id="btnEdit">
-					<spring:message code="action.edit" />
-				</button>
-				<button type="submit" id="btnRemove">
-					<spring:message code="action.remove" />
+				<button type="submit" id="btnModify">
+					<spring:message code="action.modify" />
 				</button>
 				<button type="button" id="btnList">
 					<spring:message code="action.list" />
@@ -50,18 +48,9 @@
 		$(document).ready(function() {
 //1.self location으로 보낼 수도 있고
 			let formObj = $("#codeGroup");
-			$("#btnEdit").on("click", function() {
-				let groupCode = $("#groupCode");
-				let groupCodeValue = groupCode.val();
-				self.location = "/codegroup/modify?groupCode="+groupCodeValue;
-			});
-// 2. form을 가져와서 붙일 수도 있고, 경로로 보내는 방법이 두 가지다.			
-			$("#btnRemove").on("click", function() {
-				formObj.attr("action","/codegroup/remove");
-				formObj.attr("method","post");
+			$("#btnModify").on("click", function() {
 				formObj.submit();
 			});
-			
 			$("#btnList").on("click", function() {
 				self.location = "/codegroup/list";
 			});

@@ -7,7 +7,7 @@ import com.project.domain.CodeGroup;
 public interface CodeGroupService {
 
 	// 등록 처리
-	public int register(CodeGroup codeGroup) throws Exception;
+	public int register(CodeGroup groupCode) throws Exception;
 
 	// 목록 페이지
 	public List<CodeGroup> list() throws Exception;
@@ -18,5 +18,7 @@ public interface CodeGroupService {
 	// 삭제 처리
 	public int remove(CodeGroup groupCode) throws Exception;
 
+	// 수정 처리
+	public int modify(CodeGroup groupCode) throws Exception;
 
 }

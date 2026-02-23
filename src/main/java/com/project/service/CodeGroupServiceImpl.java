@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.domain.CodeGroup;
 import com.project.mapper.CodeGroupMapper;
@@ -15,8 +16,9 @@ public class CodeGroupServiceImpl implements CodeGroupService {
 	private CodeGroupMapper mapper;
 
 	@Override
-	public int register(CodeGroup codeGroup) throws Exception {
-		return mapper.create(codeGroup);
+	@Transactional
+	public int register(CodeGroup groupCode) throws Exception {
+		return mapper.create(groupCode);
 	}
 
 	@Override
@@ -30,10 +32,19 @@ public class CodeGroupServiceImpl implements CodeGroupService {
 		return mapper.read(groupCode);
 	}
 
+	// 삭제 처리
 	@Override
+	@Transactional
 	public int remove(CodeGroup groupCode) throws Exception {
-		
+
 		return mapper.delete(groupCode);
+	}
+
+	// 수정 처리
+	@Override
+	@Transactional
+	public int modify(CodeGroup codeGroup) throws Exception {
+		return mapper.modify(codeGroup);
 	}
 
 }

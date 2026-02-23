@@ -16,6 +16,7 @@ public interface CodeGroupMapper {
 	// 삭제 처리
 	public int delete(CodeGroup groupCode) throws Exception;
 
-	
+	// 수정 처리
+	public int modify(CodeGroup codeGroup) throws Exception;
 
 }
