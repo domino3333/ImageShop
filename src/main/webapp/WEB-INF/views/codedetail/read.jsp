@@ -24,7 +24,7 @@
 				<spring:message code="codegroup.header.read" />
 			</h2>
 
-			<form:form id="codedetail" modelAttribute="codeDetail"
+			<form:form id="codeDetail" modelAttribute="codeDetail"
 				class="form-area">
 
 				<div class="form-row">
@@ -32,8 +32,9 @@
 						<spring:message code="codedetail.groupCode" />
 					</div>
 					<div>
+						<form:hidden path="groupCode" />
 						<form:select path="groupCode" items="${groupCodeList}"
-							itemValue="value" itemLabel="label" disabled="true"/>
+							itemValue="value" itemLabel="label" disabled="true" />
 					</div>
 					<div>
 						<font color="red"><form:errors path="groupCode" /></font>
@@ -44,7 +45,7 @@
 						<spring:message code="codedetail.codeValue" />
 					</div>
 					<div>
-						<form:input path="codeValue" readonly="true"/>
+						<form:input path="codeValue" readonly="true" />
 					</div>
 					<div>
 						<font color="red"><form:errors path="codeValue" /></font>
@@ -55,7 +56,7 @@
 						<spring:message code="codedetail.codeName" />
 					</div>
 					<div>
-						<form:input path="codeName" readonly="true"/>
+						<form:input path="codeName" readonly="true" />
 					</div>
 					<div>
 						<font color="red"><form:errors path="codeName" /></font>
@@ -63,10 +64,10 @@
 				</div>
 
 				<div class="button-group">
-					<button type="submit" class="btn-primary" id="btnRegister">
+					<button type="submit" class="btn-primary" id="btnEdit">
 						<spring:message code="action.edit" />
 					</button>
-					<button type="submit" class="btn-primary" id="btnRemove">
+					<button type="button" class="btn-primary" id="btnRemove">
 						<spring:message code="action.remove" />
 					</button>
 
@@ -80,31 +81,30 @@
 	</div>
 
 	<script>
+		$(document).ready(function() {
 
-	$(document).ready(function() {
+			let formObj = $("#codeDetail");
 
-		let formObj = $("#codeDetail");
-
-		$("#btnEdit").on("click", function() {
-			formObj.attr("action","/codedetail/modify");
-			formObj.attr("method","get");
-			formObj.submit();
-		});
-
-		$("#btnRemove").on("click", function(e) {
-			e.preventDefault(); // 기본 submit 막기
-			if(confirm("정말 삭제하시겠습니까?")) {
-				formObj.attr("action","/codedetail/remove");
-				formObj.attr("method","get");
+			$("#btnEdit").on("click", function() {
+				formObj.attr("action", "/codedetail/modify");
+				formObj.attr("method", "get");
 				formObj.submit();
-			}
-		});
+			});
 
-		$("#btnList").on("click", function() {
-			self.location = "/codedetail/list";
-		});
+			$("#btnRemove").on("click", function(e) {
+				e.preventDefault(); // 기본 submit 막기
+				if (confirm("정말 삭제하시겠습니까?")) {
+					formObj.attr("action", "/codedetail/remove");
+					formObj.attr("method", "get");
+					formObj.submit();
+				}
+			});
 
-	});
+			$("#btnList").on("click", function() {
+				self.location = "/codedetail/list";
+			});
+
+		});
 	</script>
 
 </body>
