@@ -12,18 +12,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import jakarta.servlet.DispatcherType;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @EnableWebSecurity
 @Slf4j
+@RequiredArgsConstructor
 //@EnableMethodSecurity(prePostEnabled=true, securedEnabled=true)
 //@EnableWebSecurity: 스프링에서 지원하는 거 안 쓰고 이제 내가 커스텀만들겠다 선언
 public class SecurityConfig {
 
 	// 프로퍼티에 있는 db의 datasource 가져오는 것
-	@Autowired
-	DataSource dataSource;
+	private final DataSource dataSource;
 
 	// 인증과 인가를 필터링할거임
 	@Bean
