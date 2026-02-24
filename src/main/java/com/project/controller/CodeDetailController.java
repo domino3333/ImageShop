@@ -41,12 +41,18 @@ public class CodeDetailController {
 	@PostMapping("/register")
 	public String register(CodeDetail codeDetail, RedirectAttributes rttr) throws Exception {
 		int count = codeDetailService.register(codeDetail);
-		if(count!=0) {
+		if (count != 0) {
 			rttr.addFlashAttribute("msg", "SUCCESS");
-		}else {
+		} else {
 			rttr.addFlashAttribute("msg", "FAIL");
 		}
 		return "redirect:/codedetail/list";
+	}
+
+	// 목록 페이지
+	@GetMapping("/list")
+	public void list(Model model) throws Exception {
+		model.addAttribute("list", codeDetailService.list());
 	}
 
 }
