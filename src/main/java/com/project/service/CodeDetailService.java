@@ -13,6 +13,7 @@ public interface CodeDetailService {
 	public List<CodeDetail> list() throws Exception;
 
 	// 상세 페이지
+	public CodeDetail read(CodeDetail codeDetail) throws Exception;
 	
 	// 삭제 처리
 

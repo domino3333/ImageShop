@@ -12,7 +12,7 @@ public interface CodeDetailMapper {
 	// 목록 페이지
 	public List<CodeDetail> list() throws Exception;
 	// 상세 페이지
-	
+	public CodeDetail read(CodeDetail codeDetail) throws Exception;
 	// 삭제 처리
 
 	// 수정 처리

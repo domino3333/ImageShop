@@ -30,6 +30,11 @@ public class CodeDetailServiceImpl implements CodeDetailService {
 	public List<CodeDetail> list() throws Exception {
 		return mapper.list();
 	}
+
+	@Override
+	public CodeDetail read(CodeDetail codeDetail) throws Exception {
+		return mapper.read(codeDetail);
+	}
 	
 	
 }

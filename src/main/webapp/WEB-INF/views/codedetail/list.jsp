@@ -61,6 +61,8 @@
 	<script>
 		var result = "${msg}";
 		if (result === "SUCCESS") {
+			alert("처리 완료!!");
+		} else {
 			alert("처리 실패!!");
 		}
 	</script>

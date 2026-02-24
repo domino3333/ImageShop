@@ -55,4 +55,14 @@ public class CodeDetailController {
 		model.addAttribute("list", codeDetailService.list());
 	}
 
+	// 상세 페이지
+	@GetMapping("/read")
+	public void read(CodeDetail codeDetail, Model model) throws Exception {
+		model.addAttribute(codeDetailService.read(codeDetail));
+		
+		// 그룹코드 목록을 조회하여 뷰에 전달
+		List<CodeLabelValue> groupCodeList = codeService.getCodeGroupList();
+		model.addAttribute("groupCodeList", groupCodeList);
+	}
+
 }
