@@ -64,7 +64,7 @@
 
 				<div class="button-group">
 					<button type="submit" class="btn-primary" id="btnRegister">
-						<spring:message code="action.register" />
+						<spring:message code="action.edit" />
 					</button>
 					<button type="submit" class="btn-primary" id="btnRemove">
 						<spring:message code="action.remove" />
@@ -101,7 +101,7 @@
 		});
 
 		$("#btnList").on("click", function() {
-			self.location = "/codegroup/list";
+			self.location = "/codedetail/list";
 		});
 
 	});
