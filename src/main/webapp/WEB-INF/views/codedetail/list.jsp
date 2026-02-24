@@ -2,56 +2,67 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
-<link rel="stylesheet" href="/css/green-theme.css">
-
-<div class="container-center">
-	<div class="card">
-
-		<h2 class="page-title">
-			<spring:message code="codegroup.header.list" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/codedetail.css">
+<title>Image Shop</title>
+</head>
+<body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
+	<main align="center">
+		<h2>
+			<spring:message code="codedetail.header.list" />
 		</h2>
-
-		<div class="top-action">
-			<a href="/codegroup/register" class="btn-primary small-btn">
-				<spring:message code="action.new" />
-			</a>
-		</div>
-
-		<table class="green-table">
+		<a href="register"><spring:message code="action.new" /></a>
+		<table border="1" class="codedetail_table">
 			<tr>
-				<th><spring:message code="codegroup.groupCode" /></th>
-				<th><spring:message code="codegroup.groupName" /></th>
-				<th><spring:message code="codegroup.regdate" /></th>
+				<th align="center" width="160"><spring:message
+						code="codedetail.groupCode" /></th>
+				<th align="center" width="160"><spring:message
+						code="codedetail.codeValue" /></th>
+				<th align="center" width="160"><spring:message
+						code="codedetail.codeName" /></th>
+				<th align="center" width="160"><spring:message
+						code="codedetail.sortSeq" /></th>
+				<th align="center" width="180"><spring:message
+						code="codedetail.regdate" /></th>
 			</tr>
-
 			<c:choose>
 				<c:when test="${empty list}">
 					<tr>
-						<td colspan="3">
-							<spring:message code="common.listEmpty" />
-						</td>
+						<td colspan="5"><spring:message code="common.listEmpty" /></td>
 					</tr>
 				</c:when>
-
 				<c:otherwise>
-					<c:forEach items="${list}" var="codeGroup">
+					<c:forEach items="${list}" var="codeDetail">
 						<tr>
-							<td>${codeGroup.groupCode}</td>
-							<td>
-								<a href="/codegroup/read?groupCode=${codeGroup.groupCode}" class="table-link">
-									${codeGroup.groupName}
-								</a>
+							<td align="center">${codeDetail.groupCode}</td>
+							<td align="center">${codeDetail.codeValue}</td>
+							<td align="left"><a
+								href="/codedetail/read?groupCode=${codeDetail.groupCode}&codeValue=${codeDetail.codeValue}">${codeDetail.codeName}</a>
 							</td>
-							<td>
-								<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-									value="${codeGroup.regDate}" />
-							</td>
+							<td align="center">${codeDetail.sortSeq}</td>
+							<td align="center"><fmt:formatDate
+									pattern="yyyy-MM-dd HH:mm" value="${codeDetail.regDate}" /></td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</table>
-	</div>
-</div>
+	</main>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	<script>
+		var result = "${msg}";
+		if (result === "SUCCESS") {
+			alert("처리 실패!!");
+		}
+	</script>
+</body>
+</html>
