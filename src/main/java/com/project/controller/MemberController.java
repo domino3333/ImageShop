@@ -1,10 +1,15 @@
 package com.project.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.project.common.domain.CodeLabelValue;
+import com.project.domain.Member;
 import com.project.service.CodeService;
 import com.project.service.MemberService;
 
@@ -16,11 +21,20 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class MemberController {
-	
+
 	private final MemberService service;
-	
+
 	private final CodeService codeService;
-	
+
 	private final PasswordEncoder passwordEncoder;
+
+	// 등록 페이지
+	@GetMapping("/register")
+	public void registerForm(Member member, Model model) throws Exception {
+		// 직업코드 목록을 조회하여 뷰에 전달
+		String groupCode = "A00";
+		List<CodeLabelValue> jobList = codeService.getCodeList(groupCode);
+		model.addAttribute("jobList", jobList);
+	}
 
 }

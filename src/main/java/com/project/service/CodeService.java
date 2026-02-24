@@ -11,6 +11,9 @@ public interface CodeService {
 
 	//코드라벨 목록 페이지 요청
 	
+	// 지정된 그룹코드에 해당하는 코드 목록 조회 A00넣을 시 A01,A02를 가져오기 위함
+	public List<CodeLabelValue> getCodeList(String groupCode) throws Exception;
+	
 	//코드라벨 상세 페이지
 	
 	//코드라벨 삭제 처리

@@ -11,7 +11,7 @@ public interface CodeMapper {
 	public List<CodeLabelValue> getCodeGroupList() throws Exception;
 	
 	// 목록 페이지
-	
+	public List<CodeLabelValue> getCodeList(String groupCode)throws Exception;
 	// 상세 페이지
 	
 	// 삭제 처리
