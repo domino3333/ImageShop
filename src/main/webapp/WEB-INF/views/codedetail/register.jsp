@@ -2,91 +2,47 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>CodeGroup Register</title>
-<link rel="stylesheet" href="/css/green-theme.css">
+<link rel="stylesheet" href="/css/codegroup.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-
-<body class="page-body">
-
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
-
-	<div class="container-center">
-		<div class="card">
-
-			<h2 class="page-title">
-				<spring:message code="codegroup.header.register" />
-			</h2>
-
-			<form:form id="codedetail" modelAttribute="codeDetail"
-				action="/codedetail/register" method="post" class="form-area">
-
-				<div class="form-row">
-					<div>
-						<spring:message code="codedetail.groupCode" />
-					</div>
-					<div>
-						<form:select path="groupCode" items="${groupCodeList}"
-							itemValue="value" itemLabel="label" />
-					</div>
-					<div>
-						<font color="red"><form:errors path="groupCode" /></font>
-					</div>
-				</div>
-				<div>
-					<div>
-						<spring:message code="codedetail.codeValue" />
-					</div>
-					<div>
-						<form:input path="codeValue" />
-					</div>
-					<div>
-						<font color="red"><form:errors path="codeValue" /></font>
-					</div>
-				</div>
-				<div>
-					<div>
-						<spring:message code="codedetail.codeName" />
-					</div>
-					<div>
-						<form:input path="codeName" />
-					</div>
-					<div>
-						<font color="red"><form:errors path="codeName" /></font>
-					</div>
-				</div>
-
-				<div class="button-group">
-					<button type="submit" class="btn-primary" id="btnRegister">
-						<spring:message code="action.register" />
-					</button>
-
-					<button type="button" class="btn-secondary" id="btnList">
-						<spring:message code="action.list" />
-					</button>
-				</div>
-
-			</form:form>
-		</div>
-	</div>
-
-	<script>
-		$(document).ready(function() {
-			let formObj = $("codedetail")
-			$("#btnList").on("click", function() {
-				location.href = "/codegroup/list";
-			});
-			$("#btnRegister").on("click", function() {
-				formObj.submit();
-			});
+<h2>
+	<spring:message code="codedetail.header.register" />
+</h2>
+<form:form modelAttribute="codeDetail" action="register">
+	<table>
+		<tr>
+			<td><spring:message code="codedetail.groupCode" /></td>
+			<td><form:select path="groupCode" items="${groupCodeList}"
+					itemValue="value" itemLabel="label" /></td>
+			<td><font color="red"><form:errors path="groupCode" /></font></td>
+		</tr>
+		<tr>
+			<td><spring:message code="codedetail.codeValue" /></td>
+			<td><form:input path="codeValue" /></td>
+			<td><font color="red"><form:errors path="codeValue" /></font></td>
+		</tr>
+		<tr>
+			<td><spring:message code="codedetail.codeName" /></td>
+			<td><form:input path="codeName" /></td>
+			<td><font color="red"><form:errors path="codeName" /></font></td>
+		</tr>
+	</table>
+</form:form>
+<div>
+	<button type="submit" id="btnRegister">
+		<spring:message code="action.register" />
+	</button>
+	<button type="submit" id="btnList">
+		<spring:message code="action.list" />
+	</button>
+</div>
+<script>
+	$(document).ready(function() {
+		var formObj = $("#codeDetail");
+		$("#btnRegister").on("click", function() {
+			formObj.submit();
 		});
-	</script>
-
-</body>
-</html>
+		$("#btnList").on("click", function() {
+			self.location = "list";
+		});
+	});
+</script>
