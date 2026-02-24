@@ -1,4 +1,4 @@
-package com.project.common;
+package com.project.common.domain;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -6,6 +6,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Data
 public class CodeLabelValue {
-	private final String value;
-	private final String label;
+	private final String value; //group_code
+	private final String label; // group_name
 }

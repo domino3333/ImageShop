@@ -8,12 +8,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.project.service.CodeDetailService;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 public class HomeController {
 
+	private CodeDetailService se;
+	
+	
 	@GetMapping("/")
 	public String home(Locale locale, Model model) {
 		
