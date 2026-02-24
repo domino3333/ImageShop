@@ -15,17 +15,18 @@ import com.project.domain.CodeDetail;
 import com.project.service.CodeDetailService;
 import com.project.service.CodeService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 @RequestMapping("/codedetail")
+@RequiredArgsConstructor
 public class CodeDetailController {
 
-	@Autowired
-	private CodeDetailService codeDetailService;
-	@Autowired
-	private CodeService codeService;
+	private final CodeDetailService codeDetailService;
+	
+	private final CodeService codeService;
 
 	// 등록 페이지
 	@GetMapping("/register")

@@ -16,8 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HomeController {
 
-	private CodeDetailService se;
-	
 	
 	@GetMapping("/")
 	public String home(Locale locale, Model model) {
