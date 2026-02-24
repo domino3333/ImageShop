@@ -72,7 +72,7 @@
 			<groupId>jakarta.servlet.jsp.jstl</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 		</dependency>
-		
+
 		<!-- h2, oracle, myBatis 의존성 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -104,7 +104,7 @@
 			<version>4.0.1</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- 시큐리티 + validation -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -124,6 +124,13 @@
 			<artifactId>spring-boot-starter-validation-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- 시큐리티 태그 의존성 설정 -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
