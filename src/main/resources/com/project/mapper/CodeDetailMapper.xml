@@ -51,11 +51,16 @@
 		use_yn,
 		reg_date
 		FROM code_detail
-		WHERE group_code = #{groupCode}
+		WHERE group_code =
+		#{groupCode}
 		AND code_value = #{codeValue}
 	</select>
 	<!-- 삭제 처리 -->
-
+	<delete id="delete">
+		DELETE FROM code_detail
+		WHERE group_code = #{groupCode}
+		AND code_value = #{codeValue}
+	</delete>
 	<!-- 수정 처리 -->
 
 

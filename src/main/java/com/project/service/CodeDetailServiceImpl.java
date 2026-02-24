@@ -35,6 +35,11 @@ public class CodeDetailServiceImpl implements CodeDetailService {
 	public CodeDetail read(CodeDetail codeDetail) throws Exception {
 		return mapper.read(codeDetail);
 	}
+
+	@Override
+	public int remove(CodeDetail codeDetail) throws Exception {
+		return mapper.delete(codeDetail);
+	}
 	
 	
 }
