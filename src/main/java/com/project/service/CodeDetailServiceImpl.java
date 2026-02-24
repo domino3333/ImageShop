@@ -40,6 +40,11 @@ public class CodeDetailServiceImpl implements CodeDetailService {
 	public int remove(CodeDetail codeDetail) throws Exception {
 		return mapper.delete(codeDetail);
 	}
+
+	@Override
+	public int modify(CodeDetail codeDetail) throws Exception {
+		return mapper.update(codeDetail);
+	}
 	
 	
 }

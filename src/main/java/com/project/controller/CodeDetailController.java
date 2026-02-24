@@ -77,4 +77,25 @@ public class CodeDetailController {
 		return "redirect:/codedetail/list";
 	}
 
+	// 수정 페이지
+	@GetMapping("/modify")
+	public void modifyForm(CodeDetail codeDetail, Model model) throws Exception {
+		model.addAttribute(codeDetailService.read(codeDetail));
+		// 그룹코드 목록을 조회하여 뷰에 전달
+		List<CodeLabelValue> groupCodeList = codeService.getCodeGroupList();
+		model.addAttribute("groupCodeList", groupCodeList);
+	}
+
+	// 수정 처리
+	@PostMapping("/modify")
+	public String modify(CodeDetail codeDetail, RedirectAttributes rttr) throws Exception {
+		
+		int count = codeDetailService.modify(codeDetail);
+		
+		String message = count !=0 ? "SUCCESS" : "FAIL";
+		rttr.addFlashAttribute("msg", message);
+		
+		return "redirect:/codedetail/list";
+	}
+
 }
