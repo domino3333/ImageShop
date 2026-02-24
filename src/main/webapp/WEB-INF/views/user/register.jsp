@@ -25,7 +25,7 @@
 				<spring:message code="user.header.register" />
 			</h2>
 
-			<form:form id="memberForm" modelAttribute="member" action="/user/register"
+			<form:form modelAttribute="member" action="/user/register"
 				method="post">
 
 				<table class="user_table">
@@ -53,10 +53,10 @@
 				</table>
 
 			<div>
-				<button type="submit" id="btnRegister">
+				<button type="button" id="btnRegister">
 					<spring:message code="action.register" />
 				</button>
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<sec:authorize access="hasRole('ADMIN')">
 					<button type="button" id="btnList">
 						<spring:message code="action.list" />
 					</button>
@@ -69,7 +69,7 @@
 
 	<script>
 		$(document).ready(function() {
-			let formObj = $("#memberForm")
+			let formObj = $("#member")
 			$("#btnRegister").on("click", function() {
 				formObj.submit();
 			});
