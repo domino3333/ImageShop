@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @EnableWebSecurity
 @Slf4j
 @RequiredArgsConstructor
-//@EnableMethodSecurity(prePostEnabled=true, securedEnabled=true)
+@EnableMethodSecurity(prePostEnabled=true, securedEnabled=true)
 //@EnableWebSecurity: 스프링에서 지원하는 거 안 쓰고 이제 내가 커스텀만들겠다 선언
 public class SecurityConfig {
 
@@ -46,11 +47,12 @@ public class SecurityConfig {
 		// 2. 시큐리티 인가 정책
 		httpSecurity.authorizeHttpRequests(auth -> auth.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 				.requestMatchers("/accessError", "/login", "/logout", "/css/**", "/js/**", "/error").permitAll()
-				.requestMatchers("/board/**").authenticated() // 게시판 : 인증 필요(로그인)
-				.requestMatchers("/manager/**").hasRole("MANAGER") // 매니저 기능은 인가 필요
-				.requestMatchers("/admin/**").hasRole("ADMIN") // 매니저 기능은 인가 필요
+//				.requestMatchers("/board/**").authenticated() // 게시판 : 인증 필요(로그인)
+//				.requestMatchers("/manager/**").hasRole("MANAGER") // 매니저 기능은 인가 필요
+//				.requestMatchers("/admin/**").hasRole("ADMIN") // 매니저 기능은 인가 필요
 				.anyRequest().permitAll() // 그 외 모든 요청은 인증, 인가가 필요 없다
 		);
+		
 
 		// 3. 접근 거부 시 보여줄 페이지(예외 처리)
 //		httpSecurity.exceptionHandling(exception ->exception.accessDeniedPage("/accessError"));

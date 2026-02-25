@@ -8,10 +8,13 @@
 		<tr>
 			<td width="80"><a href="/"><spring:message
 						code="header.home" /></a></td>
-			<!-- 로그인을 하지 않은 경우 true -->
+			<!-- 로그인을 하지 않은 경우에 들어갈 메뉴를 삽입 true -->
 			<sec:authorize access="!isAuthenticated()">
+				<td width="80"><a href="/user/register"><spring:message
+							code="header.joinMember" /></a></td>
 			</sec:authorize>
-			<!-- 인증된 사용자인 경우 true -->
+
+			<!-- 인증된 사용자인 경우에 들어갈 메뉴를 삽입 true -->
 			<sec:authorize access="isAuthenticated()">
 				<!-- 관리자 권한을 가진 사용자인 경우 true -->
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -27,6 +30,8 @@
 				</sec:authorize>
 				<!-- 회원 권한을 가진 사용자인 경우 true -->
 				<sec:authorize access="hasRole('ROLE_MEMBER')">
+
+
 				</sec:authorize>
 			</sec:authorize>
 		</tr>
