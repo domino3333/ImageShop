@@ -12,4 +12,6 @@ public interface MemberService {
 
 	public Member read(Member member) throws Exception;
 
+	public int modify(Member member) throws Exception;
+
 }

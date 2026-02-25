@@ -25,8 +25,7 @@
 				<spring:message code="user.header.modify" />
 			</h2>
 
-			<form:form modelAttribute="member" action="/user/modify"
-				>
+			<form:form modelAttribute="member" action="/user/modify2" method="post">
 				<form:hidden path="userNo" />
 				<form:hidden path="userId" />
 				<table class="user_table">
@@ -103,12 +102,10 @@
 			var formObj = $("#member");
 			
 			$("#btnEdit").on("click", function() {
-				var userNo = $("#userNo");
-				var userNoVal = userNo.val();
-				self.location = "/user/modify?userNo=" + userNoVal;
+				formObj.submit();
 			});
 			$("#btnList").on("click", function() {
-				self.location = "list";
+				self.location = "/user/list";
 			});
 		});
 	</script>

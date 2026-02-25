@@ -19,4 +19,11 @@ public interface MemberMapper {
 	// 멤버 상세
 	public Member read(Member member) throws Exception;
 
+	public int modify(Member member) throws Exception;
+
+	//권한 삭제
+	public void deleteAuth(Member member) throws Exception;
+
+	//권한 수정
+	public void modifyAuth(MemberAuth memberAuth) throws Exception;
 }

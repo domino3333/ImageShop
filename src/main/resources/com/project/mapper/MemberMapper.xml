@@ -49,7 +49,7 @@
 		WHERE
 		mem.user_no = #{userNo}
 	</select>
-	
+
 	<!-- 사용자 정의 resultMap 요소 정의 -->
 	<resultMap type="Member" id="memberMap">
 		<id property="userNo" column="user_no" />
@@ -68,6 +68,28 @@
 		<result property="userNo" column="user_no" />
 		<result property="auth" column="auth" />
 	</resultMap>
+
+
+	<!-- 권한 수정 -->
+	<insert id="modifyAuth">
+		INSERT INTO member_auth(user_no,auth) values(
+		#{userNo},
+		#{auth}
+		)
+	</insert>
+
+	<!-- 권한 삭제 -->
+	<delete id="deleteAuth">
+		delete from member_auth where user_No = #{userNo}
+	</delete>
+	
+	<!-- 수정 처리 -->
+	<update id="modify">
+		UPDATE member
+		SET user_name =#{userName},
+		job =#{job}
+		WHERE user_no = #{userNo}
+	</update>
 
 
 </mapper>

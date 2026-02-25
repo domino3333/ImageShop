@@ -99,9 +99,7 @@
 			var formObj = $("#member");
 			console.log(formObj);
 			$("#btnEdit").on("click", function() {
-				var userNo = $("#userNo");
-				var userNoVal = userNo.val();
-				self.location = "/user/modify?userNo=" + userNoVal;
+				formObj.submit();
 			});
 			$("#btnRemove").on("click", function() {
 				formObj.attr("action", "remove");
