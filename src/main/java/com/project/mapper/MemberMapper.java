@@ -29,4 +29,7 @@ public interface MemberMapper {
 
 	// 회원 삭제
 	public int remove(Member member) throws Exception;
+
+	// 전체 회원 수 반환
+	public int countAll() throws Exception;
 }
