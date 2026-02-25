@@ -16,4 +16,7 @@ public interface MemberMapper {
 	// 멤버 목록
 	public List<Member> list() throws Exception;
 
+	// 멤버 상세
+	public Member read(Member member) throws Exception;
+
 }

@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,57 +22,70 @@
 		<div class="card">
 
 			<h2 class="page-title">
-				<spring:message code="codegroup.header.read" />
+				<spring:message code="user.header.read" />
 			</h2>
 
-			<form:form id="codeDetail" modelAttribute="codeDetail"
-				class="form-area">
+			<form:form modelAttribute="member" action="/user/modify" method="post">
+				<form:hidden path="userNo" />
+				<table class="user_table">
+					<tr>
+						<td><spring:message code="user.userId" /></td>
+						<td><form:input path="userId" readonly="true" /></td>
+						<td><font color="red"><form:errors path="userId" /></font></td>
+					</tr>
+					<tr>
+						<td><spring:message code="user.userPw" /></td>
+						<td><form:password path="userPw" readonly="true" /></td>
+						<td><font color="red"><form:errors path="userPw" /></font></td>
+					</tr>
+					<tr>
+						<td><spring:message code="user.userName" /></td>
+						<td><form:input path="userName" readonly="true" /></td>
+						<td><font color="red"><form:errors path="userName" /></font></td>
+					</tr>
+					<tr>
+						<td><spring:message code="user.job" /></td>
+						<td><form:select path="job" items="${jobList}"
+								itemValue="value" itemLabel="label" disabled="true" /></td>
+						<td><font color="red"><form:errors path="job" /></font></td>
+					</tr>
+					<tr>
+						<td><spring:message code="user.auth" /> - 1</td>
+						<td><form:select path="authList[0].auth" disabled="true">
+								<form:option value="" label="=== 선택해 주세요===" />
+								<form:option value="ROLE_USER" label="사용자" />
+								<form:option value="ROLE_MEMBER" label="회원" />
+								<form:option value="ROLE_ADMIN" label="관리자" />
+							</form:select></td>
+					</tr>
 
-				<div class="form-row">
-					<div>
-						<spring:message code="codedetail.groupCode" />
-					</div>
-					<div>
-						<form:hidden path="groupCode" />
-						<form:select path="groupCode" items="${groupCodeList}"
-							itemValue="value" itemLabel="label" disabled="true" />
-					</div>
-					<div>
-						<font color="red"><form:errors path="groupCode" /></font>
-					</div>
-				</div>
+					<tr>
+						<td><spring:message code="user.auth" /> - 2</td>
+						<td><form:select path="authList[1].auth" disabled="true">
+								<form:option value="" label="=== 선택해 주세요===" />
+								<form:option value="ROLE_USER" label="사용자" />
+								<form:option value="ROLE_MEMBER" label="회원" />
+								<form:option value="ROLE_ADMIN" label="관리자" />
+							</form:select></td>
+					</tr>
+					<tr>
+						<td><spring:message code="user.auth" /> - 3</td>
+						<td><form:select path="authList[2].auth" disabled="true">
+								<form:option value="" label="=== 선택해 주세요===" />
+								<form:option value="ROLE_USER" label="사용자" />
+								<form:option value="ROLE_MEMBER" label="회원" />
+								<form:option value="ROLE_ADMIN" label="관리자" />
+							</form:select></td>
+					</tr>
+				</table>
 				<div>
-					<div>
-						<spring:message code="codedetail.codeValue" />
-					</div>
-					<div>
-						<form:input path="codeValue" readonly="true" />
-					</div>
-					<div>
-						<font color="red"><form:errors path="codeValue" /></font>
-					</div>
-				</div>
-				<div>
-					<div>
-						<spring:message code="codedetail.codeName" />
-					</div>
-					<div>
-						<form:input path="codeName" readonly="true" />
-					</div>
-					<div>
-						<font color="red"><form:errors path="codeName" /></font>
-					</div>
-				</div>
-
-				<div class="button-group">
-					<button type="submit" class="btn-primary" id="btnEdit">
+					<button type="button" id="btnEdit">
 						<spring:message code="action.edit" />
 					</button>
-					<button type="button" class="btn-primary" id="btnRemove">
+					<button type="button" id="btnRemove">
 						<spring:message code="action.remove" />
 					</button>
-
-					<button type="button" class="btn-secondary" id="btnList">
+					<button type="button" id="btnList">
 						<spring:message code="action.list" />
 					</button>
 				</div>
@@ -82,28 +96,20 @@
 
 	<script>
 		$(document).ready(function() {
-
-			let formObj = $("#codeDetail");
-
+			var formObj = $("#member");
+			console.log(formObj);
 			$("#btnEdit").on("click", function() {
-				formObj.attr("action", "/codedetail/modify");
-				formObj.attr("method", "get");
+				var userNo = $("#userNo");
+				var userNoVal = userNo.val();
+				self.location = "/user/modify?userNo=" + userNoVal;
+			});
+			$("#btnRemove").on("click", function() {
+				formObj.attr("action", "remove");
 				formObj.submit();
 			});
-
-			$("#btnRemove").on("click", function(e) {
-				e.preventDefault(); // 기본 submit 막기
-				if (confirm("정말 삭제하시겠습니까?")) {
-					formObj.attr("action", "/codedetail/remove");
-					formObj.attr("method", "get");
-					formObj.submit();
-				}
-			});
-
 			$("#btnList").on("click", function() {
-				self.location = "/codedetail/list";
+				self.location = "list";
 			});
-
 		});
 	</script>
 

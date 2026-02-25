@@ -22,12 +22,52 @@
 		user_pw,
 		user_name,
 		(SELECT code_name FROM code_detail WHERE group_code =
-		'A00' AND code_value = job) AS job,
+		'A00'
+		AND code_value = job) AS job,
 		coin,
 		reg_date
 		FROM member
-		ORDER BY reg_date DESC
+		ORDER BY reg_date
+		DESC
 	</select>
+
+
+	<!-- 상세 조회 -->
+	<select id="read" resultMap="memberMap">
+		SELECT mem.user_no,
+		mem.user_id,
+		user_pw,
+		user_name,
+		job,
+		coin,
+		reg_date,
+		upd_date,
+		auth
+		FROM member mem LEFT
+		OUTER JOIN member_auth auth ON mem.user_no
+		= auth.user_no
+		WHERE
+		mem.user_no = #{userNo}
+	</select>
+	
+	<!-- 사용자 정의 resultMap 요소 정의 -->
+	<resultMap type="Member" id="memberMap">
+		<id property="userNo" column="user_no" />
+		<result property="userId" column="user_id" />
+		<result property="userPw" column="user_pw" />
+		<result property="userName" column="user_name" />
+		<result property="job" column="job" />
+		<result property="coin" column="coin" />
+		<result property="enabled" column="enabled" />
+		<result property="regDate" column="reg_date" />
+		<result property="updDate" column="upd_date" />
+		<collection property="authList" resultMap="authMap">
+		</collection>
+	</resultMap>
+	<resultMap type="MemberAuth" id="authMap">
+		<result property="userNo" column="user_no" />
+		<result property="auth" column="auth" />
+	</resultMap>
 
 
 </mapper>

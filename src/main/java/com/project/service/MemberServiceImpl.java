@@ -35,8 +35,12 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public List<Member> list() throws Exception {
-		
 		return mapper.list();
+	}
+
+	@Override
+	public Member read(Member member) throws Exception {
+		return mapper.read(member);
 	}
 	
 }
