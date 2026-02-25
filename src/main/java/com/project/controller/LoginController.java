@@ -11,6 +11,9 @@ import lombok.extern.java.Log;
 @Controller
 @RequestMapping("/auth")
 public class LoginController {
+	
+	
+	
 	// 에러 메시지와 로그아웃 메시지를 파라미터로 사용한다.
 	@GetMapping("/login")
 	public String loginForm(String error, String logout, Model model) {
@@ -28,6 +31,6 @@ public class LoginController {
 	@GetMapping("/logout")
 	public String logoutForm() {
 		log.info("logoutForm");
-		return "logoutForm";
+		return "auth/logoutForm";
 	}
 }
