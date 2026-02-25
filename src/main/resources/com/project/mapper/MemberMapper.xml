@@ -82,7 +82,7 @@
 	<delete id="deleteAuth">
 		delete from member_auth where user_No = #{userNo}
 	</delete>
-	
+
 	<!-- 수정 처리 -->
 	<update id="modify">
 		UPDATE member
@@ -90,6 +90,17 @@
 		job =#{job}
 		WHERE user_no = #{userNo}
 	</update>
+
+
+	<!-- 삭제 처리 -->
+	<delete id="remove">
+		DELETE FROM member
+		WHERE user_no = #{userNo}
+	</delete>
+
+
+
+
 
 
 </mapper>
