@@ -2,14 +2,23 @@ package com.project.config;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import com.project.common.security.CustomAccessDeniedHandler;
+import com.project.common.security.CustomLoginSuccessHandler;
+import com.project.common.security.CustomUserDetailsService;
 
 import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
@@ -45,14 +54,17 @@ public class SecurityConfig {
 
 		// 3. 접근 거부 시 보여줄 페이지(예외 처리)
 //		httpSecurity.exceptionHandling(exception ->exception.accessDeniedPage("/accessError"));
-//		httpSecurity.exceptionHandling(exception -> exception.accessDeniedHandler(createAccessDeniedHandler()));
+		httpSecurity.exceptionHandling(exception ->
+		exception.accessDeniedHandler(createAccessDeniedHandler()));
 
 		// 4. 기본 로그인 폼은 스프링시큐리티에서 제공하는 것을 쓰지 않고(주석된거) 따로 /login에서 주는 jsp를 쓰겠다 선언
 //		httpSecurity.formLogin(Customizer.withDefaults()); // <-기본 제공 폼 안 써 
-		httpSecurity.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login") // 로그인 폼 action url, 시큐리티가
+		httpSecurity.formLogin(form ->
+		form.loginPage("/auth/login")
+		.loginProcessingUrl("/login") // 로그인 폼 action url(post방식), 시큐리티가 낚아챔
+		.successHandler(createAuthenticationSuccessHandler()).permitAll() // 로그인 페이지는
 																								// 낚아챔
 //		        .defaultSuccessUrl("/board/list")
-		// .successHandler(createAuthenticationSuccessHandler()).permitAll() // 로그인 페이지는
 		// 누구나 접근 가능해야 함
 		);
 
@@ -66,12 +78,12 @@ public class SecurityConfig {
 //		);
 
 		// 6. 자동 로그인(Remember-Me) 설정 수정
-//		httpSecurity
-//				.rememberMe(remember -> remember.key("zeus") // 인증 토큰 생성 시 사용할 키 (보안상 중요)
-//				.tokenRepository(createJDBCRepository()) // DB를 이용한 토큰 저장소 설정
-//				.tokenValiditySeconds(60 * 60 * 24) // 토큰 유효 기간 (초 단위: 여기서는 24시간)
-//				//.userDetailsService(createUserDetailsService()) // 자동 로그인 시 사용자 정보를 조회할 서비스
-//		);
+		httpSecurity
+				.rememberMe(remember -> remember.key("zeus") // 인증 토큰 생성 시 사용할 키 (보안상 중요)
+				.tokenRepository(createJDBCRepository()) // DB를 이용한 토큰 저장소 설정
+				.tokenValiditySeconds(60 * 60 * 24) // 토큰 유효 기간 (초 단위: 여기서는 24시간)
+				//.userDetailsService(createUserDetailsService()) // 자동 로그인 시 사용자 정보를 조회할 서비스
+		);
 		return httpSecurity.build();
 	}
 
@@ -81,39 +93,33 @@ public class SecurityConfig {
 	}
 
 	// 자동 로그인 관련 리파지토리
-//	private PersistentTokenRepository createJDBCRepository() {
-//		JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
-//		repo.setDataSource(dataSource);
-//		return repo;
-//	}
+	private PersistentTokenRepository createJDBCRepository() {
+		JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
+		repo.setDataSource(dataSource);
+		return repo;
+	}
 
-//	// @Autowired
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.userDetailsService(createUserDetailsService()).passwordEncoder(createPasswordEncoder());
-//
-//	}
-//
-//	// 스프링 시큐리티의 UserDetailsService를 구현한 클래스를 빈으로 등록한다.
-//	@Bean
-//	public UserDetailsService createUserDetailsService() {
-//		return new CustomUserDetailsService();
-//	}
-//
-//	// 사용자가 정의한 비번 암호화 처리기를 빈으로 등록한다.
-//	@Bean
-//	public PasswordEncoder createPasswordEncoder() {
-//		return new CustomNoOpPasswordEncoder();
-//	}
-//
-//	// 3. 접근 거부 시 예외처리를 설정하는 클래스로 이동한다.
-//	@Bean
-//	public AccessDeniedHandler createAccessDeniedHandler() {
-//		return new CustomAccessDeniedHandler();
-//	}
-//
-//	@Bean
-//	public AuthenticationSuccessHandler createAuthenticationSuccessHandler() {
-//		return new CustomLoginSuccessHandler();
-//	}
+	// @Autowired
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(createUserDetailsService()).passwordEncoder(createPasswordEncoder());
+	}
+
+	// 스프링 시큐리티의 UserDetailsService를 구현한 클래스를 빈으로 등록한다.
+	@Bean
+	public UserDetailsService createUserDetailsService() {
+		return new CustomUserDetailsService();
+	}
+
+
+	// 3. 접근 거부 시 예외처리를 설정하는 클래스로 이동한다.
+	@Bean
+	public AccessDeniedHandler createAccessDeniedHandler() {
+		return new CustomAccessDeniedHandler();
+	}
+
+	@Bean
+	public AuthenticationSuccessHandler createAuthenticationSuccessHandler() {
+		return new CustomLoginSuccessHandler();
+	}
 
 }

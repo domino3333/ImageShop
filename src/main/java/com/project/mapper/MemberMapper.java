@@ -18,6 +18,10 @@ public interface MemberMapper {
 
 	// 멤버 상세
 	public Member read(Member member) throws Exception;
+	
+
+	// UserDetailsService에서 사용하는 read
+	public Member readByUserId(Member m) throws Exception;
 
 	public int modify(Member member) throws Exception;
 
@@ -32,4 +36,5 @@ public interface MemberMapper {
 
 	// 전체 회원 수 반환
 	public int countAll() throws Exception;
+
 }
