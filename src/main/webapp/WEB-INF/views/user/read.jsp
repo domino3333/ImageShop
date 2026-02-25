@@ -35,7 +35,7 @@
 					</tr>
 					<tr>
 						<td><spring:message code="user.userPw" /></td>
-						<td><form:password path="userPw" readonly="true" /></td>
+						<td><form:input path="userPw" readonly="true" /></td>
 						<td><font color="red"><form:errors path="userPw" /></font></td>
 					</tr>
 					<tr>

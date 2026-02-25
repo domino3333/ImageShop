@@ -80,14 +80,24 @@ public class MemberController {
 	}
 
 	// 수정 페이지
-	@PostMapping("/modify")
+	@GetMapping("/modify")
 	public void modifyForm(Member member, Model model) throws Exception {
 		// 직업코드 목록을 조회하여 뷰에 전달
 		String groupCode = "A00";
 		List<CodeLabelValue> jobList = codeService.getCodeList(groupCode);
 		model.addAttribute("jobList", jobList);
-		model.addAttribute(service.read(userNo));
+		model.addAttribute(service.read(member));
 	}
+	
+	// 수정 완료 처리
+	@PostMapping("/modify2")
+	public String modify(Member member, RedirectAttributes rttr) throws
+	Exception {
+	service.modify(member);
+	rttr.addFlashAttribute("msg", "SUCCESS");
+	return "redirect:/user/list";
+	}
+	
 
 	// 목록 페이지
 	@GetMapping("/list")
