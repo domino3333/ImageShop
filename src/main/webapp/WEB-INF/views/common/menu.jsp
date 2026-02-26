@@ -31,7 +31,8 @@
 				</sec:authorize>
 				<!-- 회원 권한을 가진 사용자인 경우 true -->
 				<sec:authorize access="hasRole('ROLE_MEMBER')">
-
+					<!-- 회원 게시판 등록 -->
+					<td width="120"><a href="/board/register"> 회원 게시판 등록</a></td>
 
 				</sec:authorize>
 			</sec:authorize>
