@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project.common.domain.Board;
+import com.project.domain.Board;
 import com.project.mapper.BoardMapper;
 
 import lombok.RequiredArgsConstructor;

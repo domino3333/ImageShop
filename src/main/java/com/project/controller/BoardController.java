@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.project.common.domain.Board;
 import com.project.common.security.domain.CustomUser;
+import com.project.domain.Board;
 import com.project.domain.Member;
 import com.project.service.BoardService;
 

@@ -2,7 +2,7 @@ package com.project.mapper;
 
 import java.util.List;
 
-import com.project.common.domain.Board;
+import com.project.domain.Board;
 
 public interface BoardMapper {
 

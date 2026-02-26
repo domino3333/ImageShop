@@ -20,7 +20,7 @@
 	</insert>
 
 	<!-- 게시글 목록 페이지 -->
-	<select id="list" resultType="com.project.common.domain.Board">
+	<select id="list" resultType="Board">
 	<![CDATA[
 		SELECT board_no,
 		title,
@@ -35,7 +35,7 @@
 	</select>
 
 	<!-- 게시글 상세 조회 -->
-	<select id="read" resultType="com.project.common.domain.Board">
+	<select id="read" resultType="Board">
 		SELECT board_no,
 		title,
 		content,

@@ -81,14 +81,12 @@
 			var formObj = $("#board");
 			console.log(formObj);
 			$("#btnEdit").on("click", function() {
-				formObj.attr("action", "/board/modify");
-				formObj.attr("method", "get");
-				formObj.submit();
+				let boardNo = $("#boardNo").val();
+				self.location = "/board/modify?boardNo+"+boardNo;
 			});
 			$("#btnRemove").on("click", function() {
-				formObj.attr("action", "/board/remove");
-				formObj.attr("method", "get");
-				formObj.submit();
+				let boardNo = $("#boardNo").val();
+				self.location = "/board/remove?boardNo+"+boardNo;
 			});
 			$("#btnList").on("click", function() {
 				self.location = "/board/list";
