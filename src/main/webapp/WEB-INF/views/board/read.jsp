@@ -94,7 +94,9 @@
 			});
 			$("#btnRemove").on("click", function() {
 				let boardNo = $("#boardNo").val();
-				self.location = "/board/remove?boardNo=" + boardNo;
+				let page = $("#page").val(); 
+        		let sizePerPage = $("#sizePerPage").val(); 
+        		self.location = "/board/remove?page=" + page+ "&sizePerPage=" + sizePerPage+ "&boardNo=" + boardNo;
 			});
 			$("#btnList").on("click", function() {
 				self.location = "/board/list";
