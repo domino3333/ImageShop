@@ -59,55 +59,53 @@ public class BoardController {
 
 	// 게시글 목록 페이지
 	@GetMapping("/list")
-	public void list(@ModelAttribute("pgrq") PageRequest pageRequest,Model model) throws Exception {
+	public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 		model.addAttribute("list", service.list(pageRequest));
 		Pagination pagination = new Pagination();
 		pagination.setPageRequest(pageRequest);
 		pagination.setTotalCount(service.count());
-		model.addAttribute("pagination",pagination);
+		model.addAttribute("pagination", pagination);
 	}
 
-	// 게시글 상세 페이지
+	// 게시글 상세 페이지, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.
 	@GetMapping("/read")
-	public void read(Board board, Model model) throws Exception {
-		model.addAttribute(service.read(board));
+	public void read(Board board, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+		// 조회한 게시글 상세 정보를 뷰에 전달한다.
+		Board b1 = service.read(board);
+		model.addAttribute(b1);
 	}
 
-	// 게시글 수정 페이지로 이동
+	// 게시글 수정 페이지로 이동, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.
 	@GetMapping("/modify")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
-	public void modifyForm(Board board, Model model) throws Exception {
-		model.addAttribute(service.read(board));
+	public void modifyForm(Board board, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+		// 조회한 게시글 상세 정보를 뷰에 전달한다.
+		Board b1 = service.read(board);
+		model.addAttribute(b1);
 	}
 
-	// 게시글 수정 완료 처리
-	@PostMapping("/modify")
+	// 게시글 수정 완료 처리, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
-	public String modify(Board board, RedirectAttributes rttr) throws Exception {
-
-		int count = service.modify(board);
-
-		if (count != 0) {
-			rttr.addFlashAttribute("msg", "SUCCESS");
-		} else {
-			rttr.addFlashAttribute("msg", "FAILED");
-		}
-
+	@PostMapping("/modify")
+	public String modify(Board board, @ModelAttribute("pgrq") PageRequest pageRequest, RedirectAttributes rttr)
+			throws Exception {
+		service.modify(board);
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/board/list";
 	}
 
-	// 게시글 삭제 처리
+	// 게시글 삭제 처리, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.
 	@GetMapping("/remove")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
-	public String remove(Board board, RedirectAttributes rttr) throws Exception {
-		int count = service.remove(board);
-		
-		if (count != 0) {
-			rttr.addFlashAttribute("msg", "SUCCESS");
-		} else {
-			rttr.addFlashAttribute("msg", "FAILED");
-		}
-		
+	public String remove(Board board, @ModelAttribute("pgrq") PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
+		service.remove(board);
+		log.info("삭제 요청 page: " + pageRequest.getPage());
+		// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/board/list";
 	}
 

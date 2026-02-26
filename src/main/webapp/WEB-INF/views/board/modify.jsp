@@ -23,16 +23,20 @@
 	<div class="container-center">
 		<div class="card">
 
-			<h2 class="page-title">
-				게시글 수정 중
-			</h2>
+			<h2 class="page-title">게시글 수정 중</h2>
 
-			<form:form modelAttribute="board" action="/board/modify" method="post">
+			<form:form modelAttribute="board" action="/board/modify"
+				method="post">
 				<form:hidden path="boardNo" />
+				<!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달한다. -->
+				<input type="hidden" id="page" name="page" value="${pgrq.page}">
+				<input type="hidden" id="sizePerPage" name="sizePerPage"
+					value="${pgrq.sizePerPage}">
+
 				<table>
 					<tr>
 						<td><spring:message code="board.title" /></td>
-						<td><form:input path="title"/></td>
+						<td><form:input path="title" /></td>
 						<td><font color="red"><form:errors path="title" /></font></td>
 					</tr>
 					<tr>
@@ -42,7 +46,7 @@
 					</tr>
 					<tr>
 						<td><spring:message code="board.content" /></td>
-						<td><form:textarea path="content"/></td>
+						<td><form:textarea path="content" /></td>
 						<td><font color="red"><form:errors path="content" /></font></td>
 					</tr>
 				</table>
@@ -54,18 +58,18 @@
 					<button type="submit" id="btnModify">
 						<spring:message code="action.modify" />
 					</button>
-					<button type="submit" id="btnRemove">
+					<button type="button" id="btnRemove">
 						<spring:message code="action.remove" />
 					</button>
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_MEMBER')">
 					<c:if test="${pinfo.username eq board.writer}">
 						<button type="submit" id="btnModify">
-						<spring:message code="action.modify" />
-					</button>
-					<button type="submit" id="btnRemove">
-						<spring:message code="action.remove" />
-					</button>
+							<spring:message code="action.modify" />
+						</button>
+						<button type="submit" id="btnRemove">
+							<spring:message code="action.remove" />
+						</button>
 					</c:if>
 				</sec:authorize>
 				<button type="button" id="btnList">
@@ -85,10 +89,11 @@
 			});
 			$("#btnRemove").on("click", function() {
 				let boardNo = $("#boardNo").val();
-				self.location = "/board/remove?boardNo="+boardNo;
+			    self.location = "/board/remove${pgrq.toUriString()}&boardNo=" + boardNo;
 			});
 			$("#btnList").on("click", function() {
-				self.location = "/board/list";
+				// 페이징 관련 정보를 쿼리 파라미터로 전달한다.
+				self.location = "list${pgrq.toUriString()}";
 			});
 		});
 	</script>

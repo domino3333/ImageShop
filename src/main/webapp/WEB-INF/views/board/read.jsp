@@ -20,6 +20,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
 
+
 	<div class="container-center">
 		<div class="card">
 
@@ -29,6 +30,11 @@
 
 			<form:form modelAttribute="board">
 				<form:hidden path="boardNo" />
+				<!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달한다. -->
+				<input type="hidden" id="page" name="page" value="${pgrq.page}">
+				<input type="hidden" id="sizePerPage" name="sizePerPage"
+					value="${pgrq.sizePerPage}">
+
 				<table>
 					<tr>
 						<td><spring:message code="board.title" /></td>
@@ -64,7 +70,7 @@
 							<spring:message code="action.edit" />
 						</button>
 						<button type="submit" id="btnRemove">
-							<spring:message code ="action.remove" />
+							<spring:message code="action.remove" />
 						</button>
 					</c:if>
 				</sec:authorize>
@@ -81,12 +87,16 @@
 			var formObj = $("#board");
 			console.log(formObj);
 			$("#btnEdit").on("click", function() {
+				let page = $("#page").val();
+				let sizePerPage = $("#sizePerPage").val();
 				let boardNo = $("#boardNo").val();
-				self.location = "/board/modify?boardNo="+boardNo;
+				self.location = "/board/modify?page=" + page+ "&sizePerPage=" + sizePerPage+ "&boardNo=" + boardNo;
 			});
 			$("#btnRemove").on("click", function() {
 				let boardNo = $("#boardNo").val();
-				self.location = "/board/remove?boardNo="+boardNo;
+				let page = $("#page").val(); 
+        		let sizePerPage = $("#sizePerPage").val(); 
+        		self.location = "/board/remove?page=" + page+ "&sizePerPage=" + sizePerPage+ "&boardNo=" + boardNo;
 			});
 			$("#btnList").on("click", function() {
 				self.location = "/board/list";
