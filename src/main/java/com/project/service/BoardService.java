@@ -12,4 +12,8 @@ public interface BoardService {
 
 	Board read(Board board) throws Exception;
 
+	int modify(Board board) throws Exception;
+
+	int remove(Board board) throws Exception;
+
 }

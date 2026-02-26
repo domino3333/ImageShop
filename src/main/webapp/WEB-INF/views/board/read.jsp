@@ -82,11 +82,11 @@
 			console.log(formObj);
 			$("#btnEdit").on("click", function() {
 				let boardNo = $("#boardNo").val();
-				self.location = "/board/modify?boardNo+"+boardNo;
+				self.location = "/board/modify?boardNo="+boardNo;
 			});
 			$("#btnRemove").on("click", function() {
 				let boardNo = $("#boardNo").val();
-				self.location = "/board/remove?boardNo+"+boardNo;
+				self.location = "/board/remove?boardNo="+boardNo;
 			});
 			$("#btnList").on("click", function() {
 				self.location = "/board/list";
