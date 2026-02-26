@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,47 +20,43 @@
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
 	<main align="center">
 		<h2>
-			<spring:message code="user.header.list" />
+			<spring:message code="board.header.list" />
 		</h2>
-		<a href="/user/register"><spring:message code="action.new" /></a>
+		<sec:authorize access="hasRole('ROLE_MEMBER')">
+			<a href="/board/register"><spring:message code="action.new" /></a>
+		</sec:authorize>
+
+
 		<table border="1">
 			<tr>
-				<th align="center" width="60"><spring:message code="user.no" /></th>
-				<th align="center" width="80"><spring:message
-						code="user.userId" /></th>
-				<th align="center" width="300"><spring:message
-						code="user.userPw" /></th>
+				<th align="center" width="80"><spring:message code="board.no" /></th>
+				<th align="center" width="320"><spring:message
+						code="board.title" /></th>
 				<th align="center" width="100"><spring:message
-						code="user.userName" /></th>
-				<th align="center" width="100"><spring:message code="user.job" /></th>
+						code="board.writer" /></th>
 				<th align="center" width="180"><spring:message
-						code="user.regdate" /></th>
+						code="board.regdate" /></th>
 			</tr>
 			<c:choose>
 				<c:when test="${empty list}">
 					<tr>
-						<td colspan="6"><spring:message code="common.listEmpty" /></td>
+						<td colspan="4"><spring:message code="common.listEmpty" /></td>
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach items="${list}" var="member">
+					<c:forEach items="${list}" var="board">
 						<tr>
-							<td align="center">${member.userNo}</td>
-							<td align="center"><a
-								href='/user/read?userNo=${member.userNo}'>${member.userId}</a></td>
-							<td align="left">${member.userPw}</td>
-							<td align="right">${member.userName}</td>
-							<td align="right">${member.job}</td>
+							<td align="center">${board.boardNo}</td>
+							<td align="left"><a
+								href='/board/read?boardNo=${board.boardNo}'>${board.title}</a></td>
+							<td align="right">${board.writer}</td>
 							<td align="center"><fmt:formatDate
-									pattern="yyyy-MM-dd HH:mm" value="${member.regDate}" /></td>
+									pattern="yyyy-MM-dd HH:mm" value="${board.regDate}" /></td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</table>
-
-
-
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
