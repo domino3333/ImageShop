@@ -59,19 +59,19 @@ public class BoardController {
 
 	// 게시글 목록 페이지
 	@GetMapping("/list")
-	public void list(@ModelAttribute("pgrq") PageRequest pageRequest,Model model) throws Exception {
+	public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 		model.addAttribute("list", service.list(pageRequest));
 		Pagination pagination = new Pagination();
 		pagination.setPageRequest(pageRequest);
 		pagination.setTotalCount(service.count());
-		model.addAttribute("pagination",pagination);
+		model.addAttribute("pagination", pagination);
 	}
 
-	// 게시글 상세 페이지
-	@GetMapping("/read")
-	public void read(Board board, Model model) throws Exception {
-		model.addAttribute(service.read(board));
-	}
+//	// 게시글 상세 페이지
+//	@GetMapping("/read")
+//	public void read(Board board, Model model) throws Exception {
+//		model.addAttribute(service.read(board));
+//	}
 
 	// 게시글 수정 페이지로 이동
 	@GetMapping("/modify")
@@ -101,14 +101,22 @@ public class BoardController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
 	public String remove(Board board, RedirectAttributes rttr) throws Exception {
 		int count = service.remove(board);
-		
+
 		if (count != 0) {
 			rttr.addFlashAttribute("msg", "SUCCESS");
 		} else {
 			rttr.addFlashAttribute("msg", "FAILED");
 		}
-		
+
 		return "redirect:/board/list";
+	}
+
+	// 게시글 상세 페이지, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.
+	@GetMapping("/read")
+	public void read(Board board, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+		// 조회한 게시글 상세 정보를 뷰에 전달한다.
+		Board b1 = service.read(board);
+		model.addAttribute(b1);
 	}
 
 }
