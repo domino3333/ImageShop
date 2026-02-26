@@ -5,10 +5,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.common.domain.PageRequest;
+import com.project.common.domain.Pagination;
 import com.project.common.security.domain.CustomUser;
 import com.project.domain.Board;
 import com.project.domain.Member;
@@ -56,8 +59,12 @@ public class BoardController {
 
 	// 게시글 목록 페이지
 	@GetMapping("/list")
-	public void list(Model model) throws Exception {
-		model.addAttribute("list", service.list());
+	public void list(@ModelAttribute("pgrq") PageRequest pageRequest,Model model) throws Exception {
+		model.addAttribute("list", service.list(pageRequest));
+		Pagination pagination = new Pagination();
+		pagination.setPageRequest(pageRequest);
+		pagination.setTotalCount(service.count());
+		model.addAttribute("pagination",pagination);
 	}
 
 	// 게시글 상세 페이지
