@@ -47,8 +47,13 @@
 					<c:forEach items="${list}" var="board">
 						<tr>
 							<td align="center">${board.boardNo}</td>
+							<!--<td align="left"><a
+								href='/board/read?boardNo=${board.boardNo}'>${board.title}</a></td>-->
+							<!-- 게시글 상세보기할 때 페이징 요청 정보를 매개변수로 전달한다. -->
+							<!--<a href="/board/read?page=3&perPageNum=10&boardNo=31>타이틀</a> -->
 							<td align="left"><a
-								href='/board/read?boardNo=${board.boardNo}'>${board.title}</a></td>
+								href="/board/read${pagination.makeQuery(pagination.pageRequest.page)}&boardNo=
+${board.boardNo}">${board.title}</a></td>
 							<td align="right">${board.writer}</td>
 							<td align="center"><fmt:formatDate
 									pattern="yyyy-MM-dd HH:mm" value="${board.regDate}" /></td>
@@ -57,6 +62,28 @@
 				</c:otherwise>
 			</c:choose>
 		</table>
+		<!-- 페이징 네비게이션 -->
+		<div>
+			<!-- 페이징 네비게이션 -->
+			<div>
+				<c:if test="${pagination.prev}">
+					<a
+						href="/board/list${pagination.makeQuery(pagination.startPage - 1)}">&laquo;</a>
+				</c:if>
+				<c:forEach begin="${pagination.startPage }"
+					end="${pagination.endPage }" var="idx">
+					<c:if test="${pagination.pageRequest.page eq idx}">
+						<a href="/board/list${pagination.makeQuery(idx)}">[${idx}]</a>
+					</c:if>
+					<c:if test="${!(pagination.pageRequest.page eq idx)}">
+						<a href="/board/list${pagination.makeQuery(idx)}">${idx}</a>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pagination.next && pagination.endPage > 0}">
+					<a href="/board/list${pagination.makeQuery(pagination.endPage +1)}">&raquo;</a>
+				</c:if>
+			</div>
+		</div>
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
