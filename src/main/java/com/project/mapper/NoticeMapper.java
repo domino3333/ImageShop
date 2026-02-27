@@ -10,6 +10,6 @@ public interface NoticeMapper {
 
 	public List<Notice> list() throws Exception;
 
-	public Notice read() throws Exception;
+	public Notice read(Notice notice) throws Exception;
 
 }

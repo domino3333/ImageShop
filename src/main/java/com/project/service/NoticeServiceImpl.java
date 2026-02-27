@@ -29,7 +29,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public Notice read(Notice notice) throws Exception {
-		return mapper.read();
+		return mapper.read(notice);
 	}
 	
 }
