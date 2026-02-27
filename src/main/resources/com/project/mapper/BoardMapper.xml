@@ -60,21 +60,21 @@
 	<!-- 페이징 요청 정보를 매개 변수로 받아 페이징 처리를 한 게시글 목록을 조회한다. -->
 	<select id="list" resultType="Board">
 		<![CDATA[
-		SELECT board_no,
-		title,
-		content,
-		writer,
-		reg_date
-		FROM (select board_no,
-		title,
-		content,
-		writer,
-		reg_date,
-		rownum as rnum
-		from board)
-		where rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
-		ORDER BY board_no DESC,
-		reg_date DESC
+		SELECT *
+FROM (
+    SELECT a.*, ROWNUM rnum
+    FROM (
+        SELECT board_no,
+               title,
+               content,
+               writer,
+               reg_date
+        FROM board
+        ORDER BY board_no DESC
+    ) a
+    WHERE ROWNUM <= #{sizePerPage} * #{page}
+)
+WHERE rnum >= (#{sizePerPage} * (#{page} - 1)) + 1
 		]]>
 	</select>
 
