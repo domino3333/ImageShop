@@ -55,7 +55,7 @@
 				
 				<!-- principal 정보를 pinfo 변수에 저장 -->
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<button type="submit" id="btnEdit">
+					<button type="button" id="btnEdit">
 						<spring:message code="action.edit" />
 					</button>
 					<button type="submit" id="btnRemove">
@@ -82,18 +82,18 @@
 							"click",
 							function() {
 								let noticeNo = $("#noticeNo").val();
-								self.location = "/notice/modify&noticeNo=" + noticeNo;
+								self.location = "/notice/modify?noticeNo=" + noticeNo;
 							});
 					$("#btnRemove").on(
 							"click",
 							function() {
 								let noticeNo = $("#noticeNo").val();
-								self.location = "/notice/remove&noticeNo=" + noticeNo;
+								self.location = "/notice/remove?noticeNo=" + noticeNo;
 							});
 					$("#btnList").on(
 							"click",
 							function() {
-								self.location = "/board/list"});
+								self.location = "/notice/list"});
 				});
 	</script>
 
