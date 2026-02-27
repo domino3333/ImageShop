@@ -81,18 +81,28 @@ public class ItemController {
 	public ResponseEntity<byte[]> displayFile(Item item) throws Exception {
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
+		//썸네일 이미지 파일명을 db로부터 가져온다.// b26b867d-458d-4738-bf3c-75229c527a3d_kdj.jpg
 		String fileName = itemService.getPreview(item);
 		try {
+			//확장자 명(jpg따위)을 가져온다.
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 
+			//jpg 미디어타입을 리턴받는다. MediaType.IMAGE_JPEG;
 			MediaType mType = getMediaType(formatName);
+			
+			//httpHeader는 서버가 브라우저에게 정보를 담아서 보내주는 객체
 			HttpHeaders headers = new HttpHeaders();
+			
+			// 파일을 inputStream으로 읽는다.(바이트단위)
+			// D:/upload/b26b867d-458d-4738-bf3c-75229c527a3d_kdj.jpg <- "/" 이게 파일 separator임
+			// 이 위치에서 파일을 찾아 인풋 스트림으로 읽는다.
 			in = new FileInputStream(uploadPath + File.separator + fileName);
 
 			if (mType != null) {
 				headers.setContentType(mType);
 			}
-
+			
+			//전송. json방식으로, 바이트단위로 전송,
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,6 +110,7 @@ public class ItemController {
 		} finally {
 			in.close();
 		}
+		// 웹 브라우저에게 바이트 단위로 이미지를 전송한다.
 		return entity;
 	}
 	
