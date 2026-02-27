@@ -26,8 +26,8 @@
 			</h2>
 
 
-			<form:form modelAttribute="item" action="register"
-				enctype="multipart/form-data">
+			<form:form modelAttribute="item" action="/item/register"
+				enctype="multipart/form-data" method="post">
 				<table>
 					<tr>
 						<td><spring:message code="item.itemName" /></td>
@@ -73,12 +73,12 @@
 
 	<script>
 		$(document).ready(function() {
-			let formObj = $("#notice")
+			let formObj = $("#item")
 			$("#btnRegister").on("click", function() {
 				formObj.submit();
 			});
 			$("#btnList").on("click", function() {
-				location.href = "/notice/list";
+				location.href = "/item/list";
 			});
 		});
 	</script>
