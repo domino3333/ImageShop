@@ -1,5 +1,8 @@
 package com.project.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.common.domain.CodeLabelValue;
 import com.project.common.domain.PageRequest;
 import com.project.common.domain.Pagination;
 import com.project.common.security.domain.CustomUser;
@@ -60,11 +64,27 @@ public class BoardController {
 	// 게시글 목록 페이지
 	@GetMapping("/list")
 	public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+
+		if (pageRequest.getPage() == 0) {
+			pageRequest = new PageRequest();
+		}
+
 		model.addAttribute("list", service.list(pageRequest));
 		Pagination pagination = new Pagination();
 		pagination.setPageRequest(pageRequest);
-		pagination.setTotalCount(service.count());
+		pagination.setTotalCount(service.count(pageRequest));
 		model.addAttribute("pagination", pagination);
+
+		// 검색 유형의 코드명과 코드값을 정의한다.
+		List<CodeLabelValue> searchTypeCodeValueList = new ArrayList<CodeLabelValue>();
+		searchTypeCodeValueList.add(new CodeLabelValue("n", "---"));
+		searchTypeCodeValueList.add(new CodeLabelValue("t", "Title"));
+		searchTypeCodeValueList.add(new CodeLabelValue("c", "Content"));
+		searchTypeCodeValueList.add(new CodeLabelValue("w", "Writer"));
+		searchTypeCodeValueList.add(new CodeLabelValue("tc", "Title OR Content"));
+		searchTypeCodeValueList.add(new CodeLabelValue("cw", "Content OR Writer"));
+		searchTypeCodeValueList.add(new CodeLabelValue("tcw", "Title OR Content OR Writer"));
+		model.addAttribute("searchTypeCodeValueList", searchTypeCodeValueList);
 	}
 
 	// 게시글 상세 페이지, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.
@@ -99,7 +119,8 @@ public class BoardController {
 	// 게시글 삭제 처리, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.
 	@GetMapping("/remove")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
-	public String remove(Board board, @ModelAttribute("pgrq") PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
+	public String remove(Board board, @ModelAttribute("pgrq") PageRequest pageRequest, RedirectAttributes rttr)
+			throws Exception {
 		service.remove(board);
 		log.info("삭제 요청 page: " + pageRequest.getPage());
 		// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
