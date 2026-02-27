@@ -12,5 +12,9 @@ public interface NoticeService {
 
 	public Notice read(Notice notice) throws Exception;
 
+	public int modify(Notice notice) throws Exception;
+
+	public int remove(Notice notice) throws Exception;
+
 	
 }
