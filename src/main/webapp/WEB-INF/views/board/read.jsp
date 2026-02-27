@@ -99,7 +99,9 @@
         		self.location = "/board/remove?page=" + page+ "&sizePerPage=" + sizePerPage+ "&boardNo=" + boardNo;
 			});
 			$("#btnList").on("click", function() {
-				self.location = "/board/list";
+				let page = $("#page").val(); 
+        		let sizePerPage = $("#sizePerPage").val(); 
+				self.location = "/board/list?page=" + page + "&sizePerPage=" + sizePerPage;
 			});
 		});
 	</script>
