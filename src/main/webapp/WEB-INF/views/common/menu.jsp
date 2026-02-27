@@ -8,10 +8,13 @@
 		<tr>
 			<td width="80"><a href="/"><spring:message
 						code="header.home" /></a></td>
-			<!-- 로그인을 하지 않은 경우에 들어갈 메뉴를 삽입 true -->
+			<!-- 로그인을 하지 않은 경우에 들어갈 메뉴를 삽입 -->
 			<sec:authorize access="!isAuthenticated()">
 				<!-- 회원 게시판 리스트 -->
 				<td width="120"><a href="/board/list"> 회원 게시판 목록</a></td>
+				<!-- 공지사항을 메뉴에 추가한다. -->
+				<td width="120"><a href="/notice/list"><spring:message
+							code="menu.notice.member" /></a></td>
 			</sec:authorize>
 			<!-- 인증된 사용자인 경우에 들어갈 메뉴를 삽입 true -->
 			<sec:authorize access="isAuthenticated()">
@@ -26,6 +29,9 @@
 					<!-- 회원 관리를 메뉴에 추가한다. -->
 					<td width="120"><a href="/user/list"><spring:message
 								code="menu.user.admin" /></a></td>
+					<!-- 공지사항을 메뉴에 추가한다. -->
+					<td width="120"><a href="/notice/list"><spring:message
+								code="menu.notice.member" /></a></td>
 					<!-- 회원 게시판 리스트 -->
 					<td width="120"><a href="/board/list"> 회원 게시판 목록</a></td>
 				</sec:authorize>
@@ -35,6 +41,9 @@
 					<!--<td width="120"><a href="/board/register"> 회원 게시판 등록</a></td>-->
 					<!-- 회원 게시판 리스트 -->
 					<td width="120"><a href="/board/list"> 회원 게시판 목록</a></td>
+					<!-- 공지사항을 메뉴에 추가한다. -->
+					<td width="120"><a href="/notice/list"><spring:message
+								code="menu.notice.member" /></a></td>
 
 				</sec:authorize>
 			</sec:authorize>
