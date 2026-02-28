@@ -68,7 +68,10 @@
 							<!--<a href="/board/read?page=3&perPageNum=10&boardNo=31>타이틀</a> -->
 							<td align="left"><a
 								href="/board/read${pgrq.toUriString(pgrq.page)}&boardNo=
-${board.boardNo}">${board.title} (${board.commentCount})</a></td>
+${board.boardNo}">${board.title}<c:if
+										test="${board.commentCount > 0}">
+            (${board.commentCount})
+        </c:if></a></td>
 							<td align="right">${board.writer}</td>
 							<td align="center"><fmt:formatDate
 									pattern="yyyy-MM-dd HH:mm" value="${board.regDate}" /></td>
@@ -82,24 +85,25 @@ ${board.boardNo}">${board.title} (${board.commentCount})</a></td>
 			<!-- 페이징 네비게이션 -->
 			<div>
 				<c:if test="${empty pgrq.keyword}">
-                <c:if test="${pagination.prev}">
-                    <!-- ?page=3&sizePerPage=10" -->
-                    <a
-                        href="/board/list${pagination.makeQuery(pagination.startPage - 1)}">&laquo;</a>
-                </c:if>
-                <c:forEach begin="${pagination.startPage}"
-                    end="${pagination.endPage }" var="idx">
-                    <c:if test="${pagination.pageRequest.page eq idx}">
-                        <a href="/board/list${pagination.makeQuery(idx)}">[${idx}]</a>
-                    </c:if>
-                    <c:if test="${!(pagination.pageRequest.page eq idx)}">
-                        <a href="/board/list${pagination.makeQuery(idx)}">${idx}</a>
-                    </c:if>
-                </c:forEach>
-                <c:if test="${pagination.next && pagination.endPage > 0}">
-                    <a href="/board/list${pagination.makeQuery(pagination.endPage +1)}">&raquo;</a>
-                </c:if>
-            </c:if>
+					<c:if test="${pagination.prev}">
+						<!-- ?page=3&sizePerPage=10" -->
+						<a
+							href="/board/list${pagination.makeQuery(pagination.startPage - 1)}">&laquo;</a>
+					</c:if>
+					<c:forEach begin="${pagination.startPage}"
+						end="${pagination.endPage }" var="idx">
+						<c:if test="${pagination.pageRequest.page eq idx}">
+							<a href="/board/list${pagination.makeQuery(idx)}">[${idx}]</a>
+						</c:if>
+						<c:if test="${!(pagination.pageRequest.page eq idx)}">
+							<a href="/board/list${pagination.makeQuery(idx)}">${idx}</a>
+						</c:if>
+					</c:forEach>
+					<c:if test="${pagination.next && pagination.endPage > 0}">
+						<a
+							href="/board/list${pagination.makeQuery(pagination.endPage +1)}">&raquo;</a>
+					</c:if>
+				</c:if>
 			</div>
 		</div>
 	</main>
