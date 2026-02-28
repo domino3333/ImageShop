@@ -6,9 +6,11 @@ import lombok.Data;
 
 @Data
 public class Board {
-	private int boardNo;
+	private Long boardNo;
 	private String title;
 	private String content;
 	private String writer;
 	private Date regDate;
+	private int commentCount;
+	
 }

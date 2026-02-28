@@ -33,7 +33,7 @@
 			</if>
 		</if>
 	</sql>
-	
+
 	<sql id="total_list">
 		<if test="searchType == null">
 			and rnum between #{sizePerPage}*#{page}-9 and
@@ -104,18 +104,22 @@
 
 	<!-- 페이징 요청 정보를 매개 변수로 받아 페이징 처리를 한 게시글 목록을 조회한다. -->
 	<select id="list" resultType="Board">
-	    <![CDATA[
-	    SELECT board_no, title, content, writer, reg_date
-	    FROM ( SELECT board_no, title, content, writer, reg_date, rownum rnum
-	          FROM ( SELECT board_no, title, content, writer, reg_date FROM board  WHERE board_no > 0
-	    ]]>
-	                 <include refid="search"/>
-	                  ORDER BY board_no DESC
-	                )
-	          )
-	    <![CDATA[
-	     WHERE board_no > 0 
-	    ]]>
-     <include refid="total_list"/>
-    </select>
+<![CDATA[
+SELECT board_no, title, content, writer, reg_date, comment_count
+FROM (
+    SELECT board_no, title, content, writer, reg_date, comment_count, rownum rnum
+    FROM (
+        SELECT board_no, title, content, writer, reg_date, comment_count
+        FROM board
+        WHERE board_no > 0
+]]>
+		<include refid="search" />
+<![CDATA[
+        ORDER BY board_no DESC
+    )
+)
+WHERE board_no > 0
+]]>
+		<include refid="total_list" />
+	</select>
 </mapper>

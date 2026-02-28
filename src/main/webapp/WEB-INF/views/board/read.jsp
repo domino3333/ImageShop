@@ -5,6 +5,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -78,32 +79,113 @@
 					<spring:message code="action.list" />
 				</button>
 			</div>
+
+			<%--댓글 목록 --%>
+			<sec:authentication property="name" var="loginId" />
+			<div>
+				<h3>댓글 목록</h3>
+
+				<c:forEach items="${commentsList}" var="comment">
+					<div>
+						<b>${comment.writer}</b> : ${comment.content}
+						(<fmt:formatDate value="${comment.createdAt}" pattern="yyyy/MM/dd HH:mm"/>)
+
+						<c:if test="${loginId eq comment.writer}">
+							<form method="post" action="/board/comment/remove"
+								style="display: inline;">
+								<input type="hidden" name="writer" value="${comment.writer}">
+								<input type="hidden" name="commentNo"
+									value="${comment.commentNo}"> <input type="hidden"
+									name="boardNo" value="${comment.boardNo}"> <input
+									type="hidden" name="page" value="${pgrq.page}"> <input
+									type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
+								<button type="submit" id="btnCommentRemove">삭제</button>
+							</form>
+						</c:if>
+					</div>
+
+					<hr>
+
+				</c:forEach>
+			</div>
+
+			<%--댓글 입력 란 --%>
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
+				<div>
+					<h3>댓글</h3>
+
+					<form id="commentForm" method="post" action="/board/comment/add">
+						<input type="hidden" name="boardNo" id="commentBoardNo"
+							value="${board.boardNo}" /> <input type="hidden" name="page"
+							value="${pgrq.page}" /> <input type="hidden" name="sizePerPage"
+							value="${pgrq.sizePerPage}" />
+
+						<textarea name="content" id="commentContent" rows="3" cols="60"
+							placeholder="댓글을 입력하세요"></textarea>
+
+						<br>
+
+						<button type="button" id="btnCommentRegister">등록</button>
+					</form>
+				</div>
+				
+			</sec:authorize>
+			
+			<br>
+
+
+
+
+			
 		</div>
 	</div>
 
 
 	<script>
-		$(document).ready(function() {
-			var formObj = $("#board");
-			console.log(formObj);
-			$("#btnEdit").on("click", function() {
-				let page = $("#page").val();
-				let sizePerPage = $("#sizePerPage").val();
-				let boardNo = $("#boardNo").val();
-				self.location = "/board/modify?page=" + page+ "&sizePerPage=" + sizePerPage+ "&boardNo=" + boardNo;
-			});
-			$("#btnRemove").on("click", function() {
-				let boardNo = $("#boardNo").val();
-				let page = $("#page").val(); 
-        		let sizePerPage = $("#sizePerPage").val(); 
-        		self.location = "/board/remove?page=" + page+ "&sizePerPage=" + sizePerPage+ "&boardNo=" + boardNo;
-			});
-			$("#btnList").on("click", function() {
-				let page = $("#page").val(); 
-        		let sizePerPage = $("#sizePerPage").val(); 
-				self.location = "/board/list?page=" + page + "&sizePerPage=" + sizePerPage;
-			});
-		});
+		$(document).ready(
+				function() {
+					var formObj = $("#board");
+					console.log(formObj);
+					$("#btnEdit").on(
+							"click",
+							function() {
+								let page = $("#page").val();
+								let sizePerPage = $("#sizePerPage").val();
+								let boardNo = $("#boardNo").val();
+								self.location = "/board/modify?page=" + page
+										+ "&sizePerPage=" + sizePerPage
+										+ "&boardNo=" + boardNo;
+							});
+					$("#btnRemove").on(
+							"click",
+							function() {
+								let boardNo = $("#boardNo").val();
+								let page = $("#page").val();
+								let sizePerPage = $("#sizePerPage").val();
+								self.location = "/board/remove?page=" + page
+										+ "&sizePerPage=" + sizePerPage
+										+ "&boardNo=" + boardNo;
+							});
+					$("#btnList").on(
+							"click",
+							function() {
+								let page = $("#page").val();
+								let sizePerPage = $("#sizePerPage").val();
+								self.location = "/board/list?page=" + page
+										+ "&sizePerPage=" + sizePerPage;
+							});
+					$("#btnCommentRegister").on("click", function() {
+						let content = $("#commentContent").val();
+
+						if (content.trim() === "") {
+							alert("댓글을 입력하세요.");
+							return;
+						}
+
+						$("#commentForm").submit();
+
+					});
+				});
 	</script>
 
 </body>
