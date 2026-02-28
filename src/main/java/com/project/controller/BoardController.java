@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +19,10 @@ import com.project.common.domain.PageRequest;
 import com.project.common.domain.Pagination;
 import com.project.common.security.domain.CustomUser;
 import com.project.domain.Board;
+import com.project.domain.Comments;
 import com.project.domain.Member;
 import com.project.service.BoardService;
+import com.project.service.CommentsService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -31,6 +34,8 @@ import lombok.extern.java.Log;
 public class BoardController {
 
 	private final BoardService service;
+	private final CommentsService commentsService;
+	
 
 	// 게시글 등록 페이지
 	@GetMapping("/register")
@@ -129,5 +134,32 @@ public class BoardController {
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/board/list";
 	}
+	
+	//댓글 등록 처리
+	@PostMapping("/comment/add")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
+	public String commentAdd(Comments comments, @ModelAttribute("pgrq") PageRequest pageRequest, RedirectAttributes rttr)
+			throws Exception {
+		log.info("댓글 등록 요청 : "+ comments.getContent());
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		comments.setWriter(auth.getName());
+		
+		commentsService.add(comments);
+
+		
+		
+		rttr.addAttribute("boardNo", comments.getBoardNo());
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		return "redirect:/board/read";
+	}
+
+	
+	
+	
+	
+	
 
 }

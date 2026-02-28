@@ -4,7 +4,9 @@
 
 
 	<insert id="add">
-		insert into comments() values()
+		insert into
+		comments(comment_no,board_no,writer,content) values(
+		comments_seq.nextval,#{boardNo},#{writer},#{content})
 	</insert>
 
 

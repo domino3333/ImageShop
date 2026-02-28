@@ -53,6 +53,33 @@
 					</tr>
 				</table>
 			</form:form>
+
+			<%--댓글 입력 란 --%>
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
+				<div>
+					<h3>댓글</h3>
+
+					<form id="commentForm" method="post" action="/board/comment/add">
+						<input type="hidden" name="boardNo" id="commentBoardNo"
+							value="${board.boardNo}" /> 
+							<input type="hidden" name="page"
+							value="${pgrq.page}" /> 
+							<input type="hidden" name="sizePerPage"
+							value="${pgrq.sizePerPage}" />
+
+						<textarea name="content" id="commentContent" rows="3" cols="60"
+							placeholder="댓글을 입력하세요"></textarea>
+
+						<br>
+
+						<button type="button" id="btnCommentRegister">등록</button>
+					</form>
+				</div>
+			</sec:authorize>
+
+
+
+
 			<div>
 				<sec:authentication property="principal" var="pinfo" />
 				<!-- principal 정보를 pinfo 변수에 저장 -->
@@ -83,27 +110,50 @@
 
 
 	<script>
-		$(document).ready(function() {
-			var formObj = $("#board");
-			console.log(formObj);
-			$("#btnEdit").on("click", function() {
-				let page = $("#page").val();
-				let sizePerPage = $("#sizePerPage").val();
-				let boardNo = $("#boardNo").val();
-				self.location = "/board/modify?page=" + page+ "&sizePerPage=" + sizePerPage+ "&boardNo=" + boardNo;
-			});
-			$("#btnRemove").on("click", function() {
-				let boardNo = $("#boardNo").val();
-				let page = $("#page").val(); 
-        		let sizePerPage = $("#sizePerPage").val(); 
-        		self.location = "/board/remove?page=" + page+ "&sizePerPage=" + sizePerPage+ "&boardNo=" + boardNo;
-			});
-			$("#btnList").on("click", function() {
-				let page = $("#page").val(); 
-        		let sizePerPage = $("#sizePerPage").val(); 
-				self.location = "/board/list?page=" + page + "&sizePerPage=" + sizePerPage;
-			});
-		});
+		$(document).ready(
+				function() {
+					var formObj = $("#board");
+					console.log(formObj);
+					$("#btnEdit").on(
+							"click",
+							function() {
+								let page = $("#page").val();
+								let sizePerPage = $("#sizePerPage").val();
+								let boardNo = $("#boardNo").val();
+								self.location = "/board/modify?page=" + page
+										+ "&sizePerPage=" + sizePerPage
+										+ "&boardNo=" + boardNo;
+							});
+					$("#btnRemove").on(
+							"click",
+							function() {
+								let boardNo = $("#boardNo").val();
+								let page = $("#page").val();
+								let sizePerPage = $("#sizePerPage").val();
+								self.location = "/board/remove?page=" + page
+										+ "&sizePerPage=" + sizePerPage
+										+ "&boardNo=" + boardNo;
+							});
+					$("#btnList").on(
+							"click",
+							function() {
+								let page = $("#page").val();
+								let sizePerPage = $("#sizePerPage").val();
+								self.location = "/board/list?page=" + page
+										+ "&sizePerPage=" + sizePerPage;
+							});
+					$("#btnCommentRegister").on("click", function() {
+						let content = $("#commentContent").val();
+
+						if (content.trim() === "") {
+							alert("댓글을 입력하세요.");
+							return;
+						}
+
+						$("#commentForm").submit();
+
+					});
+				});
 	</script>
 
 </body>
