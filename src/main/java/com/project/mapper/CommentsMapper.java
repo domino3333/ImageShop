@@ -10,6 +10,10 @@ public interface CommentsMapper {
 
 	List<Comments> read(Long boardNo) throws Exception;
 
-	void remove(Comments comments) throws Exception;	
+	void remove(Comments comments) throws Exception;
+
+	void updatePlusComments(Comments comments) throws Exception;
+
+	void updateMinusComments(Comments comments) throws Exception;	
 
 }

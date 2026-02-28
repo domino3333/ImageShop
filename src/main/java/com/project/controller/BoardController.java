@@ -73,7 +73,7 @@ public class BoardController {
 		if (pageRequest.getPage() == 0) {
 			pageRequest = new PageRequest();
 		}
-
+		
 		model.addAttribute("list", service.list(pageRequest));
 		Pagination pagination = new Pagination();
 		pagination.setPageRequest(pageRequest);

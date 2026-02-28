@@ -18,8 +18,10 @@ public class CommentsServiceImpl implements CommentsService{
 	
 	
 	@Override
-	public int add(Comments comments) throws Exception {
-		return mapper.add(comments);
+	@Transactional
+	public void add(Comments comments) throws Exception {
+		mapper.add(comments);
+		mapper.updatePlusComments(comments);
 	}
 
 
@@ -33,8 +35,11 @@ public class CommentsServiceImpl implements CommentsService{
 	@Transactional
 	public void remove(Comments comments) throws Exception {
 		mapper.remove(comments);
+		mapper.updateMinusComments(comments);
 		
 	}
+
+
 
 	
 }

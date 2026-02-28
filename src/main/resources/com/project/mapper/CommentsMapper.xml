@@ -16,5 +16,20 @@
 	<delete id="remove">
 		delete from comments where comment_no=#{commentNo} and board_no=#{boardNo}
 	</delete>
+	
+	<update id="updatePlusComments">
+		update board set comment_count=comment_count+1 where board_no =#{boardNo}
+	</update>
+	
+	<update id="updateMinusComments">
+		update board set comment_count=comment_count-1 where board_no =#{boardNo}
+	</update>
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>

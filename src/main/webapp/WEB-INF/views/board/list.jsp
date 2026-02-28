@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/css/codedetail.css">
+<link rel="stylesheet" href="/css/boardList.css">
 <title>Image Shop</title>
 </head>
 <body>
@@ -68,7 +68,7 @@
 							<!--<a href="/board/read?page=3&perPageNum=10&boardNo=31>타이틀</a> -->
 							<td align="left"><a
 								href="/board/read${pgrq.toUriString(pgrq.page)}&boardNo=
-${board.boardNo}">${board.title}</a></td>
+${board.boardNo}">${board.title} (${board.commentCount})</a></td>
 							<td align="right">${board.writer}</td>
 							<td align="center"><fmt:formatDate
 									pattern="yyyy-MM-dd HH:mm" value="${board.regDate}" /></td>
