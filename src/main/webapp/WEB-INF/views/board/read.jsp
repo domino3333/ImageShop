@@ -5,6 +5,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -53,6 +54,31 @@
 					</tr>
 				</table>
 			</form:form>
+			<div>
+				<sec:authentication property="principal" var="pinfo" />
+				<!-- principal 정보를 pinfo 변수에 저장 -->
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<button type="submit" id="btnEdit">
+						<spring:message code="action.edit" />
+					</button>
+					<button type="submit" id="btnRemove">
+						<spring:message code="action.remove" />
+					</button>
+				</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_MEMBER')">
+					<c:if test="${pinfo.username eq board.writer}">
+						<button type="submit" id="btnEdit">
+							<spring:message code="action.edit" />
+						</button>
+						<button type="submit" id="btnRemove">
+							<spring:message code="action.remove" />
+						</button>
+					</c:if>
+				</sec:authorize>
+				<button type="button" id="btnList">
+					<spring:message code="action.list" />
+				</button>
+			</div>
 
 			<%--댓글 목록 --%>
 			<sec:authentication property="name" var="loginId" />
@@ -62,13 +88,12 @@
 				<c:forEach items="${commentsList}" var="comment">
 					<div>
 						<b>${comment.writer}</b> : ${comment.content}
-						(${comment.createdAt})
+						(<fmt:formatDate value="${comment.createdAt}" pattern="yyyy/MM/dd HH:mm"/>)
 
 						<c:if test="${loginId eq comment.writer}">
 							<form method="post" action="/board/comment/remove"
-								style="display: inline;" id="commentListForm">
-								<input type="hidden" name="writer"
-									value="${comment.writer}">
+								style="display: inline;">
+								<input type="hidden" name="writer" value="${comment.writer}">
 								<input type="hidden" name="commentNo"
 									value="${comment.commentNo}"> <input type="hidden"
 									name="boardNo" value="${comment.boardNo}"> <input
@@ -103,36 +128,15 @@
 						<button type="button" id="btnCommentRegister">등록</button>
 					</form>
 				</div>
+				
 			</sec:authorize>
+			
+			<br>
 
 
 
 
-			<div>
-				<sec:authentication property="principal" var="pinfo" />
-				<!-- principal 정보를 pinfo 변수에 저장 -->
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<button type="submit" id="btnEdit">
-						<spring:message code="action.edit" />
-					</button>
-					<button type="submit" id="btnRemove">
-						<spring:message code="action.remove" />
-					</button>
-				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_MEMBER')">
-					<c:if test="${pinfo.username eq board.writer}">
-						<button type="submit" id="btnEdit">
-							<spring:message code="action.edit" />
-						</button>
-						<button type="submit" id="btnRemove">
-							<spring:message code="action.remove" />
-						</button>
-					</c:if>
-				</sec:authorize>
-				<button type="button" id="btnList">
-					<spring:message code="action.list" />
-				</button>
-			</div>
+			
 		</div>
 	</div>
 
@@ -141,7 +145,6 @@
 		$(document).ready(
 				function() {
 					var formObj = $("#board");
-					var commentFormObj = $("#commentListForm");
 					console.log(formObj);
 					$("#btnEdit").on(
 							"click",
