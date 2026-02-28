@@ -9,5 +9,12 @@
 		comments_seq.nextval,#{boardNo},#{writer},#{content})
 	</insert>
 
+	<select id="read">
+		select * from comments where board_no=#{boardNo}
+	</select>
+	
+	<delete id="remove">
+		delete from comments where comment_no=#{commentNo} and board_no=#{boardNo}
+	</delete>
 
 </mapper>

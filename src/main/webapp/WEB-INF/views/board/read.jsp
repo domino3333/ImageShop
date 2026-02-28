@@ -54,6 +54,36 @@
 				</table>
 			</form:form>
 
+			<%--댓글 목록 --%>
+			<sec:authentication property="name" var="loginId" />
+			<div>
+				<h3>댓글 목록</h3>
+
+				<c:forEach items="${commentsList}" var="comment">
+					<div>
+						<b>${comment.writer}</b> : ${comment.content}
+						(${comment.createdAt})
+
+						<c:if test="${loginId eq comment.writer}">
+							<form method="post" action="/board/comment/remove"
+								style="display: inline;" id="commentListForm">
+								<input type="hidden" name="writer"
+									value="${comment.writer}">
+								<input type="hidden" name="commentNo"
+									value="${comment.commentNo}"> <input type="hidden"
+									name="boardNo" value="${comment.boardNo}"> <input
+									type="hidden" name="page" value="${pgrq.page}"> <input
+									type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
+								<button type="submit" id="btnCommentRemove">삭제</button>
+							</form>
+						</c:if>
+					</div>
+
+					<hr>
+
+				</c:forEach>
+			</div>
+
 			<%--댓글 입력 란 --%>
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
 				<div>
@@ -61,10 +91,8 @@
 
 					<form id="commentForm" method="post" action="/board/comment/add">
 						<input type="hidden" name="boardNo" id="commentBoardNo"
-							value="${board.boardNo}" /> 
-							<input type="hidden" name="page"
-							value="${pgrq.page}" /> 
-							<input type="hidden" name="sizePerPage"
+							value="${board.boardNo}" /> <input type="hidden" name="page"
+							value="${pgrq.page}" /> <input type="hidden" name="sizePerPage"
 							value="${pgrq.sizePerPage}" />
 
 						<textarea name="content" id="commentContent" rows="3" cols="60"
@@ -113,6 +141,7 @@
 		$(document).ready(
 				function() {
 					var formObj = $("#board");
+					var commentFormObj = $("#commentListForm");
 					console.log(formObj);
 					$("#btnEdit").on(
 							"click",

@@ -97,6 +97,8 @@ public class BoardController {
 	public void read(Board board, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 		// 조회한 게시글 상세 정보를 뷰에 전달한다.
 		Board b1 = service.read(board);
+		List<Comments> commentsList = commentsService.read(board.getBoardNo());
+		model.addAttribute(commentsList);
 		model.addAttribute(b1);
 	}
 
@@ -147,8 +149,27 @@ public class BoardController {
 		
 		commentsService.add(comments);
 
+		rttr.addAttribute("boardNo", comments.getBoardNo());
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		return "redirect:/board/read";
+	}
+	
+	//댓글 삭제 처리
+	@PostMapping("/comment/remove")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
+	public String commentRemove(Comments comments, @ModelAttribute("pgrq") PageRequest pageRequest, RedirectAttributes rttr)
+			throws Exception {
+		log.info("댓글 삭제 요청 : "+ comments.getCommentNo());
 		
-		
+		//현재 로그인된 사용자와 댓글의 작성자 아이디가 같지 않으면 예외 발생
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(!(comments.getWriter().equals(auth.getName()))) {
+			throw new RuntimeException("권한 없음"); 
+		}
+		commentsService.remove(comments);
+
 		rttr.addAttribute("boardNo", comments.getBoardNo());
 		rttr.addAttribute("page", pageRequest.getPage());
 		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
