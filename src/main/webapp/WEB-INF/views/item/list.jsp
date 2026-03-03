@@ -89,7 +89,7 @@ AND !hasRole('ROLE_MEMBER')">
 								<td align="center"><a href="/item/remove?itemId=${item.itemId}"><spring:message
 											code="item.remove" /></a></td>
 							</sec:authorize>
-							<sec:authorize access="hasRole('ROLE_MEMBER')">
+							<sec:authorize access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')">
 								<td align="center"><a href="/item/read?itemId=${item.itemId}"><spring:message
 											code="item.read" /></a></td>
 							</sec:authorize>
