@@ -5,7 +5,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -87,8 +87,10 @@
 
 				<c:forEach items="${commentsList}" var="comment">
 					<div>
-						<b>${comment.writer}</b> : ${comment.content}
-						(<fmt:formatDate value="${comment.createdAt}" pattern="yyyy/MM/dd HH:mm"/>)
+						<b>${comment.writer}</b> : ${comment.content} (
+						<fmt:formatDate value="${comment.createdAt}"
+							pattern="yyyy/MM/dd HH:mm" />
+						)
 
 						<c:if test="${loginId eq comment.writer}">
 							<form method="post" action="/board/comment/remove"
@@ -115,11 +117,9 @@
 					<h3>댓글</h3>
 
 					<form id="commentForm" method="post" action="/board/comment/add">
-						<input type="hidden" name="boardNo" id="commentBoardNo"
-							value="${board.boardNo}" /> <input type="hidden" name="page"
-							value="${pgrq.page}" /> <input type="hidden" name="sizePerPage"
-							value="${pgrq.sizePerPage}" />
-
+						<input type="hidden" name="boardNo" id="commentBoardNo"value="${board.boardNo}" />
+						<input type="hidden" name="page"value="${pgrq.page}" />
+						<input type="hidden" name="sizePerPage"value="${pgrq.sizePerPage}" />
 						<textarea name="content" id="commentContent" rows="3" cols="60"
 							placeholder="댓글을 입력하세요"></textarea>
 
@@ -128,15 +128,15 @@
 						<button type="button" id="btnCommentRegister">등록</button>
 					</form>
 				</div>
-				
+
 			</sec:authorize>
-			
+
 			<br>
 
 
 
 
-			
+
 		</div>
 	</div>
 

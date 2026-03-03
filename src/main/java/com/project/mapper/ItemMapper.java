@@ -16,4 +16,6 @@ public interface ItemMapper {
 
 	public Item read(Item item) throws Exception;
 
+	public int modify(Item item) throws Exception;
+
 }

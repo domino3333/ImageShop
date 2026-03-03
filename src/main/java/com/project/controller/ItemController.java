@@ -83,6 +83,40 @@ public class ItemController {
 		return "item/modify";
 	}
 
+	// 상품 수정 처리
+	@PostMapping("/modify")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String modify(Item item, RedirectAttributes rttr) throws Exception {
+		MultipartFile pictureFile = item.getPicture();
+		if (pictureFile != null && pictureFile.getSize() > 0) {
+			String createdFilename = uploadFile(pictureFile.getOriginalFilename(), pictureFile.getBytes());
+			// 기존의 이지지파일 삭제
+			Item item2 = itemService.read(item);
+			String pictureUrl = item2.getPictureUrl();
+			File pictureFile_ = new File(uploadPath + pictureUrl);
+			pictureFile_.delete();
+			item.setPictureUrl(createdFilename);
+		}
+		MultipartFile previewFile = item.getPreview();
+		if (previewFile != null && previewFile.getSize() > 0) {
+			String createdFilename = uploadFile(previewFile.getOriginalFilename(), previewFile.getBytes());
+			// 기존의 프리뷰 파일 삭제
+			Item item2 = itemService.read(item);
+			String previewUrl = item2.getPreviewUrl();
+			File previewFile_ = new File(uploadPath + previewUrl);
+			previewFile_.delete();
+			item.setPreviewUrl(createdFilename);
+		}
+
+		int count = itemService.modify(item);
+		if (count != 0) {
+			rttr.addFlashAttribute("msg", "SUCCESS");
+
+		} else {
+			rttr.addFlashAttribute("msg", "FAILED");
+		}
+	}
+
 	// 썸네일 이미지 표시
 	@ResponseBody
 	@RequestMapping("/display")
