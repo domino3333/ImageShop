@@ -4,8 +4,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,81 +18,63 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
 
-
 	<div class="container-center">
 		<div class="card">
 
 			<h2 class="page-title">
-				<spring:message code="notice.header.read" />
+				<spring:message code="item.header.read" />
 			</h2>
 
 
-			<form:form modelAttribute="notice">
-				<form:hidden path="noticeNo" />
+			<form:form modelAttribute="item">
+
+				<form:hidden path="itemId" />
+
 
 				<table>
 					<tr>
-						<td><spring:message code="notice.title" /></td>
-						<td><form:input path="title" readonly="true" /></td>
-						<td><font color="red"><form:errors path="title" /> </font></td>
+						<td><spring:message code="item.itemName" /></td>
+						<td><form:input path="itemName" readonly="true"/></td>
+						<td><font color="red"><form:errors path="itemName" /></font></td>
 					</tr>
 					<tr>
-						<td><spring:message code="notice.content" /></td>
-						<td><form:textarea path="content" readonly="true" /></td>
-						<td><font color="red"><form:errors path="content" /></font></td>
+						<td><spring:message code="item.itemPrice" /></td>
+						<td><form:input path="price" readonly="true"/>&nbsp;원</td>
+						<td><font color="red"><form:errors path="price" /></font></td>
+					</tr>
+					<tr>
+						<td><spring:message code="item.picture" /></td>
+						<td><img src="/item/picture?itemId=${item.itemId}" width="210"></td>
+					</tr>
+					<tr>
+						<td><spring:message code="item.preview" /></td>
+						<td><img src="display?itemId=${item.itemId}" width="210"></td>
+					</tr>
+					<tr>
+						<td><spring:message code="item.itemDescription" /></td>
+						<td><form:textarea path="description" /></td>
+						<td><form:errors path="description" /></td>
 					</tr>
 				</table>
 			</form:form>
 
-
-
-
-
 			<div>
-				<sec:authentication property="principal" var="pinfo" />
 				
-				<!-- principal 정보를 pinfo 변수에 저장 -->
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<button type="button" id="btnEdit">
-						<spring:message code="action.edit" />
-					</button>
-					<button type="submit" id="btnRemove">
-						<spring:message code="action.remove" />
-					</button>
-				</sec:authorize>
-
-				
-				<button type="button" id="btnList">
+				<button type="submit" id="btnList">
 					<spring:message code="action.list" />
 				</button>
-				
 			</div>
+
 		</div>
 	</div>
 
-
 	<script>
-		$(document).ready(
-				function() {
-					var formObj = $("#notice");
-					console.log(formObj);
-					$("#btnEdit").on(
-							"click",
-							function() {
-								let noticeNo = $("#noticeNo").val();
-								self.location = "/notice/modify?noticeNo=" + noticeNo;
-							});
-					$("#btnRemove").on(
-							"click",
-							function() {
-								let noticeNo = $("#noticeNo").val();
-								self.location = "/notice/remove?noticeNo=" + noticeNo;
-							});
-					$("#btnList").on(
-							"click",
-							function() {
-								self.location = "/notice/list"});
-				});
+		$(document).ready(function() {
+			let formObj = $("#item")
+			$("#btnList").on("click", function() {
+				location.href = "/item/list";
+			});
+		});
 	</script>
 
 </body>
