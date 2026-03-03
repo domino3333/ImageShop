@@ -40,6 +40,12 @@ public class CommentsServiceImpl implements CommentsService{
 	}
 
 
+	@Override
+	public void modify(Comments comments) throws Exception {
+		mapper.modify(comments);
+	}
+
+
 
 	
 }

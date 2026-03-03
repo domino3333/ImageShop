@@ -25,7 +25,9 @@
 		update board set comment_count=comment_count-1 where board_no =#{boardNo}
 	</update>
 	
-	
+	<update id="modify">
+		update comments set content=#{content} where comment_no = #{commentNo}
+	</update>
 	
 	
 	

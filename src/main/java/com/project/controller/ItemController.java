@@ -194,10 +194,10 @@ public class ItemController {
 		Member member = customUser.getMember();
 		int userNo = member.getUserNo();
 		
-		member.setCoin(memberService.getCoin(userNo));
+		//member.setCoin(memberService.getCoin(userNo));
 		
-		Item item = itemService.read(itemId);
-		userItemService.register(member, item);
+		//Item item = itemService.read(itemId);
+		//userItemService.register(member, item);
 		
 		String message = messageSource.getMessage("item.purchaseComplete", null, Locale.KOREAN);
 		rttr.addFlashAttribute("msg", message);

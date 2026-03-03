@@ -9,5 +9,7 @@ public interface CommentsService {
 
 	public List<Comments> read(Long boardNo) throws Exception;
 
-	public void remove(Comments comments) throws Exception ;
+	public void remove(Comments comments) throws Exception;
+
+	public void modify(Comments comments) throws Exception;
 }

@@ -14,6 +14,8 @@ public interface CommentsMapper {
 
 	void updatePlusComments(Comments comments) throws Exception;
 
-	void updateMinusComments(Comments comments) throws Exception;	
+	void updateMinusComments(Comments comments) throws Exception;
+
+	void modify(Comments comments) throws Exception;
 
 }

@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CodeGroup Register</title>
+<title>Board Read</title>
 <link rel="stylesheet" href="/css/green-theme.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -20,7 +20,6 @@
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
-
 
 	<div class="container-center">
 		<div class="card">
@@ -31,7 +30,6 @@
 
 			<form:form modelAttribute="board">
 				<form:hidden path="boardNo" />
-				<!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달한다. -->
 				<input type="hidden" id="page" name="page" value="${pgrq.page}">
 				<input type="hidden" id="sizePerPage" name="sizePerPage"
 					value="${pgrq.sizePerPage}">
@@ -40,151 +38,135 @@
 					<tr>
 						<td><spring:message code="board.title" /></td>
 						<td><form:input path="title" readonly="true" /></td>
-						<td><font color="red"><form:errors path="title" /></font></td>
 					</tr>
 					<tr>
 						<td><spring:message code="board.writer" /></td>
 						<td><form:input path="writer" readonly="true" /></td>
-						<td><font color="red"><form:errors path="writer" /></font></td>
 					</tr>
 					<tr>
 						<td><spring:message code="board.content" /></td>
 						<td><form:textarea path="content" readonly="true" /></td>
-						<td><font color="red"><form:errors path="content" /></font></td>
 					</tr>
 				</table>
 			</form:form>
+
 			<div>
 				<sec:authentication property="principal" var="pinfo" />
-				<!-- principal 정보를 pinfo 변수에 저장 -->
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<button type="submit" id="btnEdit">
-						<spring:message code="action.edit" />
-					</button>
-					<button type="submit" id="btnRemove">
-						<spring:message code="action.remove" />
-					</button>
+					<button type="button" id="btnEdit">수정</button>
+					<button type="button" id="btnRemove">삭제</button>
 				</sec:authorize>
+
 				<sec:authorize access="hasRole('ROLE_MEMBER')">
 					<c:if test="${pinfo.username eq board.writer}">
-						<button type="submit" id="btnEdit">
-							<spring:message code="action.edit" />
-						</button>
-						<button type="submit" id="btnRemove">
-							<spring:message code="action.remove" />
-						</button>
+						<button type="button" id="btnEdit">수정</button>
+						<button type="button" id="btnRemove">삭제</button>
 					</c:if>
 				</sec:authorize>
-				<button type="button" id="btnList">
-					<spring:message code="action.list" />
-				</button>
+
+				<button type="button" id="btnList">목록</button>
 			</div>
 
-			<%--댓글 목록 --%>
+			<hr>
+
 			<sec:authentication property="name" var="loginId" />
-			<div>
-				<h3>댓글 목록</h3>
 
-				<c:forEach items="${commentsList}" var="comment">
-					<div>
-						<b>${comment.writer}</b> : ${comment.content} (
-						<fmt:formatDate value="${comment.createdAt}"
-							pattern="yyyy/MM/dd HH:mm" />
-						)
+			<h3>댓글 목록</h3>
 
-						<c:if test="${loginId eq comment.writer}">
-							<form method="post" action="/board/comment/remove"
-								style="display: inline;">
-								<input type="hidden" name="writer" value="${comment.writer}">
-								<input type="hidden" name="commentNo"
-									value="${comment.commentNo}"> <input type="hidden"
-									name="boardNo" value="${comment.boardNo}"> <input
-									type="hidden" name="page" value="${pgrq.page}"> <input
-									type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
-								<button type="submit" id="btnCommentRemove">삭제</button>
-							</form>
-						</c:if>
-					</div>
+			<c:forEach items="${commentsList}" var="comment">
+
+				<div class="comment-box">
+
+					<b>${comment.writer}</b> :
+
+					<!-- 보기 모드 -->
+					<span class="comment-content">${comment.content}</span>
+
+					<!-- 수정 폼 (처음엔 숨김) -->
+					<form method="post" action="/board/comment/modify"
+						class="edit-form" style="display: none;">
+
+						<input type="hidden" name="commentNo" value="${comment.commentNo}">
+						<input type="hidden" name="boardNo" value="${comment.boardNo}">
+						<textarea name="content" rows="3" cols="60">${comment.content}</textarea>
+
+						<button type="submit">완료</button>
+					</form>
+
+					<c:if test="${loginId eq comment.writer}">
+						<button type="button" class="btn-edit">수정</button>
+
+						<!-- 삭제 (POST) -->
+						<form method="post" action="/board/comment/remove"
+							style="display: inline;">
+							<input type="hidden" name="commentNo" value="${comment.commentNo}">
+							<input type="hidden" name="writer" value="${comment.writer}">
+							<input type="hidden" name="boardNo" value="${comment.boardNo}">
+							<button type="submit">삭제</button>
+						</form>
+					</c:if>
 
 					<hr>
-
-				</c:forEach>
-			</div>
-
-			<%--댓글 입력 란 --%>
-			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
-				<div>
-					<h3>댓글</h3>
-
-					<form id="commentForm" method="post" action="/board/comment/add">
-						<input type="hidden" name="boardNo" id="commentBoardNo"value="${board.boardNo}" />
-						<input type="hidden" name="page"value="${pgrq.page}" />
-						<input type="hidden" name="sizePerPage"value="${pgrq.sizePerPage}" />
-						<textarea name="content" id="commentContent" rows="3" cols="60"
-							placeholder="댓글을 입력하세요"></textarea>
-
-						<br>
-
-						<button type="button" id="btnCommentRegister">등록</button>
-					</form>
 				</div>
 
+			</c:forEach>
+
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
+				<h3>댓글</h3>
+
+				<form id="commentForm" method="post" action="/board/comment/add">
+					<input type="hidden" name="boardNo" value="${board.boardNo}">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}">
+					<textarea name="content" id="commentContent" rows="3" cols="60"
+						placeholder="댓글을 입력하세요"></textarea>
+					<br>
+					<button type="submit">등록</button>
+				</form>
 			</sec:authorize>
-
-			<br>
-
-
-
-
 
 		</div>
 	</div>
 
-
 	<script>
 		$(document).ready(
 				function() {
-					var formObj = $("#board");
-					console.log(formObj);
-					$("#btnEdit").on(
-							"click",
+
+					// 게시글 버튼
+					$("#btnEdit").click(
 							function() {
 								let page = $("#page").val();
-								let sizePerPage = $("#sizePerPage").val();
+								let size = $("#sizePerPage").val();
 								let boardNo = $("#boardNo").val();
-								self.location = "/board/modify?page=" + page
-										+ "&sizePerPage=" + sizePerPage
-										+ "&boardNo=" + boardNo;
+								location.href = "/board/modify?page=" + page
+										+ "&sizePerPage=" + size + "&boardNo="
+										+ boardNo;
 							});
-					$("#btnRemove").on(
-							"click",
-							function() {
-								let boardNo = $("#boardNo").val();
-								let page = $("#page").val();
-								let sizePerPage = $("#sizePerPage").val();
-								self.location = "/board/remove?page=" + page
-										+ "&sizePerPage=" + sizePerPage
-										+ "&boardNo=" + boardNo;
-							});
-					$("#btnList").on(
-							"click",
-							function() {
-								let page = $("#page").val();
-								let sizePerPage = $("#sizePerPage").val();
-								self.location = "/board/list?page=" + page
-										+ "&sizePerPage=" + sizePerPage;
-							});
-					$("#btnCommentRegister").on("click", function() {
-						let content = $("#commentContent").val();
 
-						if (content.trim() === "") {
-							alert("댓글을 입력하세요.");
-							return;
-						}
-
-						$("#commentForm").submit();
-
+					$("#btnRemove").click(function() {
+						let boardNo = $("#boardNo").val();
+						location.href = "/board/remove?boardNo=" + boardNo;
 					});
+
+					$("#btnList").click(
+							function() {
+								let page = $("#page").val();
+								let size = $("#sizePerPage").val();
+								location.href = "/board/list?page=" + page
+										+ "&sizePerPage=" + size;
+							});
+
+					// 수정 버튼 클릭 시 textarea 폼 보이기
+					$(".btn-edit").click(function() {
+
+						let box = $(this).closest(".comment-box");
+
+						box.find(".comment-content").hide();
+						box.find(".edit-form").show();
+
+						$(this).hide();
+					});
+
 				});
 	</script>
 

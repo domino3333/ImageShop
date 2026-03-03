@@ -173,11 +173,22 @@ public class BoardController {
 		rttr.addAttribute("boardNo", comments.getBoardNo());
 		rttr.addAttribute("page", pageRequest.getPage());
 		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
-		rttr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/board/read";
 	}
 
 	
+	@PostMapping("/comment/modify")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
+	public String commentModify(Comments comments, @ModelAttribute("pgrq") PageRequest pageRequest, RedirectAttributes rttr)
+			throws Exception {
+		//코멘no,content넘어옴
+		commentsService.modify(comments);
+		rttr.addAttribute("boardNo", comments.getBoardNo());
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		
+		return "redirect:/board/read";
+	}
 	
 	
 	
