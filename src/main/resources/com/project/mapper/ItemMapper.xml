@@ -68,12 +68,18 @@
 	<update id="modify">
 		UPDATE item
 		SET item_name = #{itemName},
-		price = #{price},
+		price =
+		#{price},
 		description = #{description},
 		picture_url = #{pictureUrl},
 		preview_url = #{previewUrl}
 		WHERE item_id = #{itemId}
 	</update>
 
+	<!-- 상품 삭제 처리 -->
+	<delete id="remove">
+		DELETE FROM item
+		WHERE item_id = #{itemId}
+	</delete>
 
 </mapper>

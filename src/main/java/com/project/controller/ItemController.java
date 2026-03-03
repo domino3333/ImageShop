@@ -93,7 +93,7 @@ public class ItemController {
 			// 기존의 이지지파일 삭제
 			Item item2 = itemService.read(item);
 			String pictureUrl = item2.getPictureUrl();
-			File pictureFile_ = new File(uploadPath + pictureUrl);
+			File pictureFile_ = new File(uploadPath,pictureUrl);
 			pictureFile_.delete();
 			item.setPictureUrl(createdFilename);
 		}
@@ -103,7 +103,7 @@ public class ItemController {
 			// 기존의 프리뷰 파일 삭제
 			Item item2 = itemService.read(item);
 			String previewUrl = item2.getPreviewUrl();
-			File previewFile_ = new File(uploadPath + previewUrl);
+			File previewFile_ = new File(uploadPath,previewUrl);
 			previewFile_.delete();
 			item.setPreviewUrl(createdFilename);
 		}
@@ -126,6 +126,47 @@ public class ItemController {
 		model.addAttribute(_item);
 		return "item/remove";
 	}
+
+	// 상품 삭제 처리
+	@PostMapping("/remove")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String remove(Item item, RedirectAttributes rttr) throws Exception {
+		// 1. 하드에 있는 상품 이미지를 제거
+		Item _item = itemService.read(item);
+		String pictureUrl = _item.getPictureUrl();
+		String previewUrl = _item.getPreviewUrl();
+		if (pictureUrl!=null && pictureUrl.length()>0) {
+			
+			File pictureFile_ = new File(uploadPath,pictureUrl);
+			pictureFile_.delete();
+		}
+		if (previewUrl!=null && previewUrl.length()>0) {
+			File previewFile_ = new File(uploadPath,previewUrl);
+			previewFile_.delete();
+		}
+		
+		
+		
+		// 2. 테이블에서 제거
+		int count = itemService.remove(item);
+		
+		if (count != 0) {
+			rttr.addFlashAttribute("msg", "SUCCESS");
+
+		} else {
+			rttr.addFlashAttribute("msg", "FAILED");
+		}
+		return "redirect:/item/list";
+	}
+	
+	// 상품 상세 페이지
+	@GetMapping("/read")
+	public String read(Item item, Model model) throws Exception {
+	Item _item = itemService.read(item);
+	model.addAttribute(_item);
+	return "item/read";
+	}
+
 
 	// 썸네일 이미지 표시
 	@ResponseBody
