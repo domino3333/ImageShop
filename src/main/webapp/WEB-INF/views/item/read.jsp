@@ -52,7 +52,7 @@
 					</tr>
 					<tr>
 						<td><spring:message code="item.itemDescription" /></td>
-						<td><form:textarea path="description" /></td>
+						<td><form:textarea path="description" readonly="true" /></td>
 						<td><form:errors path="description" /></td>
 					</tr>
 				</table>

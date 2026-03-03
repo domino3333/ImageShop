@@ -1,9 +1,11 @@
 package com.project.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.project.service.MemberService;
 import com.project.service.UserItemService;
 
 import lombok.RequiredArgsConstructor;
@@ -15,8 +17,9 @@ public class UserItemController {
 
 	@Value("${upload.path}")
 	private String uploadPath;
-	
-	private final UserItemService service;
+	private final UserItemService itemService;
+
+
 	
 	
 	
