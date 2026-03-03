@@ -115,6 +115,16 @@ public class ItemController {
 		} else {
 			rttr.addFlashAttribute("msg", "FAILED");
 		}
+		return "redirect:/item/list";
+	}
+
+	// 상품 삭제화면 페이지요청
+	@GetMapping("/remove")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String removeForm(Item item, Model model) throws Exception {
+		Item _item = itemService.read(item);
+		model.addAttribute(_item);
+		return "item/remove";
 	}
 
 	// 썸네일 이미지 표시
