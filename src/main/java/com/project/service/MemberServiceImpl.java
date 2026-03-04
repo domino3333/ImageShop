@@ -99,4 +99,10 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+	@Override
+	public int getCoin(Member member) throws Exception {
+		return mapper.getCoin(member);
+	}
+
+
 }

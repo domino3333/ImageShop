@@ -38,6 +38,7 @@
 					<td width="120"><a href="/board/list"> 회원 게시판 목록</a></td>
 					<!-- 상품 게시판 리스트 -->
 					<td width="120"><a href="/item/list"> 상품 목록</a></td>
+
 				</sec:authorize>
 				<!-- 회원 권한을 가진 사용자인 경우 true -->
 				<sec:authorize access="hasRole('ROLE_MEMBER')">
@@ -55,6 +56,11 @@
 								code="menu.coin.charge" /></a></td>
 					<td width="120"><a href="/coin/list"><spring:message
 								code="menu.coin.list" /></a></td>
+					<!-- 구매 상품과 구매 내역을 메뉴에 추가한다. -->
+					<td width="120"><a href="/useritem/list"><spring:message
+								code="menu.useritem.list" /></a></td>
+					<td width="120"><a href="/coin/listPay"><spring:message
+								code="menu.coin.listPay" /></a></td>
 				</sec:authorize>
 			</sec:authorize>
 		</tr>

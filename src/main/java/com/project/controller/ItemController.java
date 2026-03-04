@@ -187,21 +187,31 @@ public class ItemController {
 	// 상품 구매 요청을 처리한다.
 	@RequestMapping(value = "/buy", method = RequestMethod.POST)
 	@PreAuthorize("hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')")
-	public String buy(int itemId, RedirectAttributes rttr, Authentication authentication) throws Exception {
-		//인증된 사용자 정보를 가져온다
+	public String buy(Item item, RedirectAttributes rttr, Authentication authentication) throws Exception {
+		// 인증된 사용자 정보를 가져온다
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
-		
+
 		Member member = customUser.getMember();
 		int userNo = member.getUserNo();
-		
-		//member.setCoin(memberService.getCoin(userNo));
-		
-		//Item item = itemService.read(itemId);
-		//userItemService.register(member, item);
-		
+
+		// 해당되는 회원의 코인 정보를 가져와서 저장
+		member.setCoin(memberService.getCoin(member));
+
+		// 상품 정보 가져오기
+		Item _item = itemService.read(item);
+
+		// 장바구니 생성
+		userItemService.register(member, item);
+
 		String message = messageSource.getMessage("item.purchaseComplete", null, Locale.KOREAN);
 		rttr.addFlashAttribute("msg", message);
 		return "redirect:/item/success";
+	}
+
+	// 상품 구매 성공 페이지를 표시한다.
+	@RequestMapping(value = "/success", method = RequestMethod.GET)
+	public String success() throws Exception {
+		return "item/success";
 	}
 
 	// 썸네일 이미지 표시

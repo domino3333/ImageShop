@@ -26,7 +26,7 @@
 			</h2>
 
 
-			<form:form modelAttribute="item">
+			<form:form modelAttribute="item" action="/item/buy" method="post">
 
 				<form:hidden path="itemId" />
 
@@ -34,17 +34,18 @@
 				<table>
 					<tr>
 						<td><spring:message code="item.itemName" /></td>
-						<td><form:input path="itemName" readonly="true"/></td>
+						<td><form:input path="itemName" readonly="true" /></td>
 						<td><font color="red"><form:errors path="itemName" /></font></td>
 					</tr>
 					<tr>
 						<td><spring:message code="item.itemPrice" /></td>
-						<td><form:input path="price" readonly="true"/>&nbsp;원</td>
+						<td><form:input path="price" readonly="true" />&nbsp;원</td>
 						<td><font color="red"><form:errors path="price" /></font></td>
 					</tr>
 					<tr>
 						<td><spring:message code="item.picture" /></td>
-						<td><img src="/item/picture?itemId=${item.itemId}" width="210"></td>
+						<td><img src="/item/picture?itemId=${item.itemId}"
+							width="210"></td>
 					</tr>
 					<tr>
 						<td><spring:message code="item.preview" /></td>
@@ -59,7 +60,10 @@
 			</form:form>
 
 			<div>
-				
+				<button type="submit" id="btnBuy">
+					<spring:message code="action.buy" />
+				</button>
+
 				<button type="submit" id="btnList">
 					<spring:message code="action.list" />
 				</button>
@@ -71,6 +75,9 @@
 	<script>
 		$(document).ready(function() {
 			let formObj = $("#item")
+			$("#btnBuy").on("click", function() {
+				formObj.submit();
+			});
 			$("#btnList").on("click", function() {
 				location.href = "/item/list";
 			});

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.domain.ChargeCoin;
+import com.project.domain.Member;
+import com.project.domain.PayCoin;
 import com.project.mapper.CoinMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,22 @@ public class CoinServiceImpl implements CoinService{
 	@Override
 	public List<ChargeCoin> list(int userNo) throws Exception {
 		return mapper.list(userNo);
+	}
+
+	@Override
+	public void pay(PayCoin payCoin) throws Exception {
+		mapper.pay(payCoin);
+	}
+
+	@Override
+	public void createPayHistory(PayCoin payCoin) throws Exception {
+		mapper.createPayHistory(payCoin);
+		
+	}
+
+	@Override
+	public List<PayCoin> listPayHistory(Member member) throws Exception {
+		return mapper.listPayHistory(member);
 	}
 	
 	
