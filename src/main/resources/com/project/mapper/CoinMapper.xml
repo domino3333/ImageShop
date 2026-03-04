@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.CoinMapper">
 
-	<insert id="charge">
+	<insert id="create">
 		INSERT INTO charge_coin_history
 		(
 		history_no,
@@ -16,6 +16,13 @@
 		#{amount}
 		)
 	</insert>
+
+	<update id="charge">
+		UPDATE member
+		SET coin = (coin + #{amount}),
+		upd_date = SYSDATE
+		WHERE user_no = #{userNo}
+	</update>
 
 	<select id="list" resultType="ChargeCoin">
 		<![CDATA[
