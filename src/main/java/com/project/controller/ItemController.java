@@ -22,7 +22,6 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -189,7 +188,7 @@ public class ItemController {
 	}
 
 	// 상품 구매 요청을 처리한다.
-	@RequestMapping(value = "/buy", method = RequestMethod.POST)
+	@PostMapping("/buy")
 	@PreAuthorize("hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')")
 	public String buy(Item item, RedirectAttributes rttr, Authentication authentication) throws Exception {
 		// 인증된 사용자 정보를 가져온다
@@ -213,7 +212,7 @@ public class ItemController {
 	}
 
 	// 상품 구매 성공 페이지를 표시한다.
-	@RequestMapping(value = "/success", method = RequestMethod.GET)
+	@GetMapping("/success")
 	public String success() throws Exception {
 		return "item/success";
 	}
