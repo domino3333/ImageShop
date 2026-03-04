@@ -48,7 +48,7 @@
 							<td align="left"><a href="/useritem/read?userItemNo=${useritem.userItemNo}">${useritem.itemName}</a></td>
 							<td align="right">${useritem.price}</td>
 							<td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${useritem.regDate}" /></td>
-							<td align="center"><a href="/useritem/download\?userItemNo=${useritem.userItemNo}">DOWNLOAD</a></td>
+							<td align="center"><a href="/useritem/download?userItemNo=${useritem.userItemNo}">DOWNLOAD</a></td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>

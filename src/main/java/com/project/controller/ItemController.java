@@ -201,7 +201,7 @@ public class ItemController {
 		Item _item = itemService.read(item);
 
 		// 장바구니 생성
-		userItemService.register(member, item);
+		userItemService.register(member, _item);
 
 		String message = messageSource.getMessage("item.purchaseComplete", null, Locale.KOREAN);
 		rttr.addFlashAttribute("msg", message);
