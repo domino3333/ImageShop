@@ -180,7 +180,11 @@ public class ItemController {
 	@GetMapping("/read")
 	public String read(Item item, Model model) throws Exception {
 		Item _item = itemService.read(item);
-		model.addAttribute("item", _item);
+		if(_item!=null) {
+			model.addAttribute("item", _item);
+		}else {
+			throw new Exception("에러가 발생했어요.");
+		}
 		return "item/read";
 	}
 

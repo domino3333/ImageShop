@@ -62,11 +62,10 @@ public class SecurityConfig {
 //		httpSecurity.formLogin(Customizer.withDefaults()); // <-기본 제공 폼 안 써 
 		httpSecurity.formLogin(form ->
 		form.loginPage("/auth/login")
-		.loginProcessingUrl("/login") // 로그인 폼 action url(post방식), 시큐리티가 낚아챔
-		.successHandler(createAuthenticationSuccessHandler()).permitAll() // 로그인 페이지는
-																								// 낚아챔
+		.loginProcessingUrl("/login") // 로그인 폼 action url(Get방식), 시큐리티가 낚아챔
+		.successHandler(createAuthenticationSuccessHandler()).permitAll()
 //		        .defaultSuccessUrl("/board/list")
-		// 누구나 접근 가능해야 함
+
 		);
 
 		// 5. 로그아웃 처리
