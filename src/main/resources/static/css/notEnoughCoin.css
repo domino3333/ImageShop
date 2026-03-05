@@ -1,0 +1,112 @@
+/* ===== notEnoughCoin.css ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue-primary: #1a6fdb;
+  --blue-dark:    #0d4fa8;
+  --blue-light:   #eef4ff;
+  --black:        #111827;
+  --gray-bg:      #f3f7ff;
+  --white:        #ffffff;
+  --border:       #d6e4f7;
+  --yellow:       #d97706;
+  --yellow-light: #fffbeb;
+  --yellow-border:#fde68a;
+}
+
+body.page-body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--gray-bg);
+  color: var(--black);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-center {
+  flex: 1;
+  max-width: 520px;
+  margin: 80px auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+/* ===== 카드 ===== */
+.card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; box-shadow: 0 4px 24px rgba(26,111,219,0.07); overflow: hidden; }
+
+.card-alert {
+  padding: 44px 44px 40px;
+  text-align: center;
+  position: relative;
+}
+
+/* 코인 부족 → 주황/노랑 상단 바 */
+.card-alert::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--yellow), #fbbf24);
+  border-radius: 12px 12px 0 0;
+}
+
+.card-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--black);
+  margin-bottom: 18px;
+  letter-spacing: -0.2px;
+}
+
+.alert-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--yellow);
+  background: var(--yellow-light);
+  border: 1px solid var(--yellow-border);
+  border-radius: 6px;
+  padding: 13px 18px;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+/* ===== 버튼 그룹 ===== */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-primary {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--blue-primary);
+  border: 1.5px solid var(--blue-primary);
+  border-radius: 6px;
+  padding: 9px 24px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.15s;
+}
+
+.btn-primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+
+.btn-secondary {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--blue-primary);
+  background: var(--white);
+  border: 1.5px solid var(--blue-primary);
+  border-radius: 6px;
+  padding: 9px 24px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-secondary:hover { background: var(--blue-light); color: var(--blue-dark); }

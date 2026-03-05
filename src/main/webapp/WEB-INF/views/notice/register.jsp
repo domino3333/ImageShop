@@ -8,58 +8,60 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CodeGroup Register</title>
-<link rel="stylesheet" href="/css/green-theme.css">
+<title>공지사항 등록</title>
+<link rel="stylesheet" href="/css/noticeRegister.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/menu.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="page-body">
+<body class="notice-body">
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
 
-	<div class="container-center">
-		<div class="card">
+	<main class="notice-container">
+		<div class="notice-card">
 
-			<h2 class="page-title">
+			<h2 class="notice-title">
 				<spring:message code="notice.header.register" />
 			</h2>
 
-			<form:form modelAttribute="notice" action="/notice/register"
+			<form:form modelAttribute="notice" id="noticeForm" action="/notice/register"
 				method="post">
 
-				<table>
+				<table class="notice-form-table">
 					<tr>
 						<td><spring:message code="notice.title" /></td>
-						<td><form:input path="title" /></td>
+						<td><form:input path="title" class="input-field" /></td>
 						<td><font color="red"><form:errors path="title" /></font></td>
 					</tr>
 					<tr>
 						<td><spring:message code="notice.content" /></td>
-						<td><form:textarea path="content" /></td>
+						<td><form:textarea path="content" class="textarea-field" /></td>
 						<td><font color="red"><form:errors path="content" /></font></td>
 					</tr>
 				</table>
-			</form:form>
-			<div>
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<button type="submit" id="btnRegister">
-						<spring:message code="action.register" />
+
+				<div class="button-group">
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<button type="submit" id="btnRegister" class="btn-primary">
+							<spring:message code="action.register" />
+						</button>
+					</sec:authorize>
+					<button type="button" id="btnList" class="btn-secondary">
+						<spring:message code="action.list" />
 					</button>
-				</sec:authorize>
-				<button type="submit" id="btnList">
-					<spring:message code="action.list" />
-				</button>
-			</div>
+				</div>
+			</form:form>
 
 		</div>
-	</div>
+	</main>
 
 	<script>
 		$(document).ready(function() {
-			let formObj = $("#notice")
 			$("#btnRegister").on("click", function() {
-				formObj.submit();
+				$("#noticeForm").submit();
 			});
 			$("#btnList").on("click", function() {
 				location.href = "/notice/list";

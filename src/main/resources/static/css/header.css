@@ -1,13 +1,91 @@
-body {
-  background-color: lightblue;
+/* ===== header.css ===== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+
+:root {
+  --primary:       #1565C0;
+  --primary-light: #1E88E5;
+  --accent:        #0D47A1;
+  --dark:          #111827;
+  --gray-700:      #374151;
+  --gray-400:      #9CA3AF;
+  --white:         #FFFFFF;
+  --border:        #DBEAFE;
+  --transition:    .22s cubic-bezier(.4,0,.2,1);
+  --radius:        8px;
 }
 
-h1 {
-  color: white;
-  text-align: center;
+/* ── Header Wrapper ── */
+.header-wrapper {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 6px rgba(21,101,192,.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-p {
-  font-family: verdana;
-  font-size: 20px;
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Logo ── */
+.logo-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--primary);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color var(--transition);
+}
+
+.logo-text:hover { color: var(--primary-light); }
+
+/* ── Auth Area ── */
+.auth-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-link {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: .875rem;
+  font-weight: 400;
+  color: var(--gray-700);
+  text-decoration: none;
+  padding: 6px 4px;
+  transition: color var(--transition);
+}
+
+.auth-link:hover { color: var(--primary); }
+
+.auth-button {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: .875rem;
+  font-weight: 500;
+  color: var(--white);
+  background: var(--primary);
+  text-decoration: none;
+  padding: 7px 20px;
+  border-radius: var(--radius);
+  transition: background var(--transition), box-shadow var(--transition);
+}
+
+.auth-button:hover {
+  background: var(--accent);
+  box-shadow: 0 4px 14px rgba(21,101,192,.28);
+}
+
+.welcome-user {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: .875rem;
+  font-weight: 500;
+  color: var(--primary);
 }

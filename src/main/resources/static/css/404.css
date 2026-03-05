@@ -1,0 +1,118 @@
+/* ===== error404.css (404.jsp → green-theme.css 교체용) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue-primary: #1a6fdb;
+  --blue-dark:    #0d4fa8;
+  --blue-light:   #eef4ff;
+  --black:        #111827;
+  --gray-mid:     #6b7280;
+  --gray-bg:      #f3f7ff;
+  --white:        #ffffff;
+  --border:       #d6e4f7;
+  --red:          #dc2626;
+  --red-light:    #fef2f2;
+  --red-border:   #fecaca;
+}
+
+body.page-body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--gray-bg);
+  color: var(--black);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== 에러 카드 (header/menu include 이후 흐름) ===== */
+body.page-body > h2 {
+  max-width: 480px;
+  width: calc(100% - 48px);
+  margin: 64px auto 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--red);
+  background: var(--red-light);
+  border: 1.5px solid var(--red-border);
+  border-radius: 12px 12px 0 0;
+  padding: 36px 48px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+body.page-body > h2::before {
+  content: '404';
+  position: absolute;
+  top: 10px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--red);
+  opacity: 0.45;
+}
+
+body.page-body > h2::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--red), #f87171);
+  border-radius: 12px 12px 0 0;
+}
+
+/* a 두 개를 하나의 버튼 영역처럼 묶음 */
+body.page-body > a {
+  display: block;
+  max-width: 480px;
+  width: calc(100% - 48px);
+  margin: 0 auto;
+  text-align: center;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 12px 0;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+body.page-body > a:nth-of-type(1) {
+  color: var(--blue-primary);
+  background: var(--white);
+  border: 1.5px solid var(--red-border);
+  border-top: none;
+}
+
+body.page-body > a:nth-of-type(1):hover {
+  background: var(--blue-light);
+  color: var(--blue-dark);
+  border-color: var(--blue-primary);
+}
+
+body.page-body > a:nth-of-type(2) {
+  color: var(--white);
+  background: var(--blue-primary);
+  border: 1.5px solid var(--blue-primary);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+}
+
+body.page-body > a:nth-of-type(2):hover {
+  background: var(--blue-dark);
+  border-color: var(--blue-dark);
+}
+
+body.page-body > br { display: none; }
+
+/* ===== 푸터 ===== */
+.footer-wrapper {
+  margin-top: auto;
+  background: var(--black);
+  color: #9ca3af;
+  text-align: center;
+  padding: 22px 32px;
+  font-size: 12.5px;
+  letter-spacing: 0.3px;
+}

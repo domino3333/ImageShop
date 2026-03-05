@@ -1,0 +1,71 @@
+/* ===== userSetupFailure.css ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue-primary: #1a6fdb;
+  --blue-dark:    #0d4fa8;
+  --blue-light:   #eef4ff;
+  --black:        #111827;
+  --gray-bg:      #f3f7ff;
+  --white:        #ffffff;
+  --border:       #d6e4f7;
+  --red:          #dc2626;
+  --red-light:    #fef2f2;
+  --red-border:   #fecaca;
+}
+
+body.page-body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--gray-bg);
+  color: var(--black);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+body.page-body h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--red);
+  background: var(--red-light);
+  border: 1.5px solid var(--red-border);
+  border-radius: 12px;
+  padding: 40px 56px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+body.page-body h2::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--red), #f87171);
+  border-radius: 12px 12px 0 0;
+}
+
+body.page-body a {
+  display: block;
+  text-align: center;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--blue-primary);
+  background: var(--white);
+  border: 1.5px solid var(--blue-primary);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  padding: 14px 56px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+body.page-body a:hover {
+  background: var(--blue-light);
+  color: var(--blue-dark);
+}

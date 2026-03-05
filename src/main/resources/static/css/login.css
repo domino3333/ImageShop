@@ -1,0 +1,91 @@
+/* ===== 기본 세팅 ===== */
+body.login-body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Pretendard', sans-serif;
+    background-color: #f4f8ff;
+    color: #222;
+}
+
+/* ===== 중앙 컨테이너 ===== */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 40px 20px;
+}
+
+/* ===== 카드 스타일 ===== */
+.login-card {
+    background-color: #ffffff;
+    padding: 50px 60px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 80, 200, 0.1);
+    min-width: 400px;
+}
+
+/* ===== 제목 ===== */
+.login-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a73e8;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ===== 에러/로그아웃 메시지 ===== */
+.login-error {
+    color: #d93025;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.login-logout {
+    color: #1a73e8;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ===== 폼 ===== */
+.login-form table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.input-field {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #c5d6f0;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 5px rgba(26, 115, 232, 0.3);
+}
+
+/* ===== 체크박스 ===== */
+.login-form input[type="checkbox"] {
+    margin-right: 6px;
+}
+
+/* ===== 버튼 ===== */
+.login-button {
+    background-color: #1a73e8;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.login-button:hover {
+    background-color: #155ec4;
+}

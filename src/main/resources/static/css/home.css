@@ -1,13 +1,109 @@
-body {
-  background-color: lightblue;
+/* ===== GLOBAL RESET & BASE ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-h1 {
-  color: white;
+:root {
+  --blue-primary:   #1a6fdb;
+  --blue-dark:      #0d4fa8;
+  --blue-light:     #eef4ff;
+  --blue-mid:       #a8c8f5;
+  --black:          #111827;
+  --gray-dark:      #374151;
+  --gray-mid:       #6b7280;
+  --gray-light:     #f3f7ff;
+  --white:          #ffffff;
+  --border:         #d6e4f7;
+}
+
+body.home-body {
+  font-family: 'Noto Sans KR', 'Pretendard', sans-serif;
+  background-color: var(--gray-light);
+  color: var(--black);
+  min-height: 100vh;
+}
+
+/* ===== LAYOUT ===== */
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== HOME CONTAINER ===== */
+.home-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+}
+
+/* ===== HOME CARD ===== */
+.home-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 60px 72px;
   text-align: center;
+  box-shadow: 0 4px 32px rgba(26, 111, 219, 0.08);
+  max-width: 560px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
-p {
-  font-family: verdana;
-  font-size: 20px;
+/* 카드 상단 포인트 바 */
+.home-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue-primary), var(--blue-mid));
+  border-radius: 12px 12px 0 0;
+}
+
+.home-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--black);
+  line-height: 1.4;
+  margin-bottom: 18px;
+  letter-spacing: -0.3px;
+}
+
+/* 서버 시간 */
+.server-time {
+  font-size: 13.5px;
+  color: var(--gray-mid);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+/* ===== FOOTER ===== */
+.footer-wrapper {
+  background: var(--black);
+  color: #9ca3af;
+  text-align: center;
+  padding: 22px 32px;
+  font-size: 12.5px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .home-card {
+    padding: 40px 28px;
+  }
+
+  .home-title {
+    font-size: 20px;
+  }
 }

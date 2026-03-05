@@ -1,0 +1,163 @@
+/* ===== itemList.css ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue-primary: #1a6fdb;
+  --blue-dark:    #0d4fa8;
+  --blue-light:   #eef4ff;
+  --blue-mid:     #a8c8f5;
+  --black:        #111827;
+  --gray-dark:    #374151;
+  --gray-mid:     #6b7280;
+  --gray-line:    #e5edf8;
+  --gray-bg:      #f3f7ff;
+  --white:        #ffffff;
+  --border:       #d6e4f7;
+}
+
+body.page-body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--gray-bg);
+  color: var(--black);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-center {
+  flex: 1;
+  max-width: 980px;
+  margin: 48px auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+/* ===== 카드 ===== */
+.card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(26, 111, 219, 0.07);
+  overflow: hidden;
+}
+
+.card-item-list {
+  padding: 36px 40px 40px;
+  position: relative;
+}
+
+.card-item-list::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue-primary), var(--blue-mid));
+  border-radius: 12px 12px 0 0;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--black);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--blue-primary);
+  letter-spacing: -0.2px;
+}
+
+/* ===== 신규 등록 버튼 ===== */
+.btn-primary {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--blue-primary);
+  border: 1.5px solid var(--blue-primary);
+  border-radius: 5px;
+  padding: 7px 16px;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 16px;
+  transition: background 0.15s;
+}
+
+.btn-primary.btn-small {
+  font-size: 12px;
+  padding: 5px 13px;
+}
+
+.btn-primary:hover {
+  background: var(--blue-dark);
+  border-color: var(--blue-dark);
+}
+
+/* ===== 테이블 ===== */
+.item-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+/* thead 명시 → sec:authorize 영향 없이 항상 안정적 */
+.item-table thead tr {
+  background: var(--blue-light);
+}
+
+.item-table thead th {
+  padding: 12px 16px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  text-align: center;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+
+/* tbody 명시 → 동적 행 추가/제거에도 스타일 안정 */
+.item-table tbody tr {
+  border-bottom: 1px solid var(--gray-line);
+  transition: background 0.13s;
+}
+
+.item-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.item-table tbody tr:hover {
+  background: #f7faff;
+}
+
+.item-table tbody td {
+  padding: 12px 16px;
+  color: var(--gray-dark);
+  vertical-align: middle;
+}
+
+.item-table tbody td[colspan] {
+  text-align: center;
+  color: var(--gray-mid);
+  padding: 40px 0;
+}
+
+.item-table a {
+  color: var(--blue-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.item-table a:hover {
+  color: var(--blue-dark);
+  text-decoration: underline;
+}
+
+/* ===== 푸터 ===== */
+.footer-wrapper {
+  background: var(--black);
+  color: #9ca3af;
+  text-align: center;
+  padding: 22px 32px;
+  font-size: 12.5px;
+  letter-spacing: 0.3px;
+}

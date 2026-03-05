@@ -8,7 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>CodeGroup Register</title>
-<link rel="stylesheet" href="/css/green-theme.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/menu.css">
+<link rel="stylesheet" href="/css/codegroupRegister.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -28,46 +30,47 @@
 				action="/codegroup/register" method="post" class="form-area">
 
 				<div class="form-row">
-					<label class="form-label"> <spring:message
-							code="codegroup.groupCode" />
+					<label class="form-label">
+						<spring:message code="codegroup.groupCode" />
 					</label>
-					<form:input path="groupCode" cssClass="form-input" />
+					<form:input path="groupCode" cssClass="form-input"/>
 					<div class="error-text">
-						<form:errors path="groupCode" />
+						<form:errors path="groupCode"/>
 					</div>
 				</div>
 
 				<div class="form-row">
-					<label class="form-label"> <spring:message
-							code="codegroup.groupName" />
+					<label class="form-label">
+						<spring:message code="codegroup.groupName" />
 					</label>
-					<form:input path="groupName" cssClass="form-input" />
+					<form:input path="groupName" cssClass="form-input"/>
 					<div class="error-text">
-						<form:errors path="groupName" />
+						<form:errors path="groupName"/>
 					</div>
 				</div>
 
 				<div class="button-group">
 					<button type="submit" class="btn-primary">
-						<spring:message code="action.register" />
+						<spring:message code="action.register"/>
 					</button>
 
 					<button type="button" class="btn-secondary" id="btnList">
-						<spring:message code="action.list" />
+						<spring:message code="action.list"/>
 					</button>
 				</div>
 
 			</form:form>
+
 		</div>
 	</div>
 
-	<script>
-		$(document).ready(function() {
-			$("#btnList").on("click", function() {
-				location.href = "/codegroup/list";
-			});
-		});
-	</script>
+<script>
+$(document).ready(function() {
+	$("#btnList").on("click", function() {
+		location.href = "/codegroup/list";
+	});
+});
+</script>
 
 </body>
 </html>

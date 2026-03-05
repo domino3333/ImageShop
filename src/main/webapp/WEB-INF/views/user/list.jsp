@@ -10,7 +10,9 @@
 <meta charset="UTF-8">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/css/codedetail.css">
+<link rel="stylesheet" href="/css/userList.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/menu.css">
 <title>Image Shop</title>
 </head>
 <body>
@@ -64,7 +66,7 @@
 	<script>
 		var result = "${msg}";
 		if (result === "SUCCESS") {
-			alert("처리 완료!!");
+			alert("성공적으로 완료되었습니다.");
 		}
 	</script>
 </body>

@@ -4,120 +4,90 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/css/codedetail.css">
-<title>Image Shop</title>
+<title>Item Shop</title>
+<link rel="stylesheet" href="/css/itemList.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/menu.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
-	<main align="center">
-		<h2>
-			<spring:message code="item.header.list" />
-		</h2>
+<body class="page-body">
 
-		<%-- 검색 폼을 만든다. 
-		<form:form modelAttribute="pgrq" method="get"
-			action="/notice/list${pgrq.toUriStringByPage()}">
-			<form:select path="searchType" items="${searchTypeCodeValueList}"
-				itemValue="value" itemLabel="label" />
-			<form:input path="keyword" />
-			<button id='searchBtn'>
-				<spring:message code="action.search" />
-			</button>
-		</form:form>
-		--%>
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/common/menu.jsp" />
 
-
+<div class="container-center">
+	<div class="card card-item-list">
+		<h2 class="card-title"><spring:message code="item.header.list" /></h2>
 
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<a href="/item/register"><spring:message code="action.new" /></a>
+			<a href="/item/register" class="btn-primary btn-small">
+				<spring:message code="action.new" />
+			</a>
 		</sec:authorize>
 
-		<table border="1">
-			<tr>
-				<th align="center" width="80"><spring:message
-						code="item.itemId" /></th>
-				<th align="center" width="320"><spring:message
-						code="item.itemName" /></th>
-				<th align="center" width="100"><spring:message
-						code="item.itemPrice" /></th>
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<th align="center" width="80"><spring:message code="item.edit" /></th>
-					<th align="center" width="80"><spring:message
-							code="item.remove" /></th>
-				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_MEMBER')">
-					<th align="center" width="80"><spring:message code="item.read" /></th>
-				</sec:authorize>
-			</tr>
-			<c:choose>
-				<c:when test="${empty itemList}">
-					<tr>
-						<sec:authorize
-							access="!hasRole('ROLE_ADMIN')
-AND !hasRole('ROLE_MEMBER')">
-							<td colspan="3"><spring:message code="common.listEmpty" />
-							</td>
-						</sec:authorize>
-						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<td colspan="5"><spring:message code="common.listEmpty" />
-							</td>
-						</sec:authorize>
-						<sec:authorize access="hasRole('ROLE_MEMBER')">
-							<td colspan="4"><spring:message code="common.listEmpty" />
-							</td>
-						</sec:authorize>
-					</tr>
-				</c:when>
-				<c:otherwise>
-					<c:forEach items="${itemList}" var="item">
+		<table class="item-table">
+			<thead>
+				<tr>
+					<th><spring:message code="item.itemId" /></th>
+					<th><spring:message code="item.itemName" /></th>
+					<th><spring:message code="item.itemPrice" /></th>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<th><spring:message code="item.edit" /></th>
+						<th><spring:message code="item.remove" /></th>
+					</sec:authorize>
+					<sec:authorize access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')">
+						<th><spring:message code="item.read" /></th>
+					</sec:authorize>
+				</tr>
+			</thead>
+			<tbody>
+				<c:choose>
+					<c:when test="${empty itemList}">
 						<tr>
-							<td align="center">${item.itemId}</td>
-							<td align=left>${item.itemName}</td>
-							<td align="right">${item.price}원</td>
-							<sec:authorize access="hasRole('ROLE_ADMIN')">
-								<td align="center"><a href="/item/modify?itemId=${item.itemId}"><spring:message
-											code="item.edit" /></a></td>
-								<td align="center"><a href="/item/remove?itemId=${item.itemId}"><spring:message
-											code="item.remove" /></a></td>
-							</sec:authorize>
-							<sec:authorize access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')">
-								<td align="center"><a href="/item/read?itemId=${item.itemId}"><spring:message
-											code="item.read" /></a></td>
-							</sec:authorize>
+							<td colspan="5" align="center"><spring:message code="common.listEmpty" /></td>
 						</tr>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${itemList}" var="item">
+							<tr>
+								<td align="center">${item.itemId}</td>
+								<td align="left">${item.itemName}</td>
+								<td align="right">${item.price}원</td>
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<td align="center">
+										<a href="/item/modify?itemId=${item.itemId}"><spring:message code="item.edit" /></a>
+									</td>
+									<td align="center">
+										<a href="/item/remove?itemId=${item.itemId}"><spring:message code="item.remove" /></a>
+									</td>
+								</sec:authorize>
+								<sec:authorize access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')">
+									<td align="center">
+										<a href="/item/read?itemId=${item.itemId}"><spring:message code="item.read" /></a>
+									</td>
+								</sec:authorize>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
 		</table>
 
+	</div>
+</div>
 
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
-
-
-
-
-
-		<%-- 페이징 네비게이션
-		
-			공지사항은 페이징 기법 적용 안 해서 안 넣음
-		 --%>
-
-	</main>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-	<script>
-		var result = "${msg}";
-		if (result === "SUCCESS") {
-			alert("처리 완료!!");
-		}
-	</script>
+<script>
+	var result = "${msg}";
+	if(result === "SUCCESS") {
+		alert("성공적으로 완료되었습니다.");
+	}
+</script>
 </body>
 </html>

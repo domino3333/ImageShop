@@ -9,7 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>CodeGroup Register</title>
-<link rel="stylesheet" href="/css/green-theme.css">
+<link rel="stylesheet" href="/css/boardRegister.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/menu.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 

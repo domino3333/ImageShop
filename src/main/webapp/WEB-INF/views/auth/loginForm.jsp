@@ -9,47 +9,52 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CodeGroup Register</title>
-<link rel="stylesheet" href="/css/green-theme.css">
+<title>Login</title>
+<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/menu.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="page-body">
+<body class="login-body">
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
 
-	<div class="container-center">
-		<div class="card">
+	<div class="login-container">
+		<div class="login-card">
 
-			<h2 class="page-title">
+			<h2 class="login-title">
 				<spring:message code="auth.header.login" />
 			</h2>
-			<h2>
-				<c:out value="${error}" />
-			</h2>
-			<h2>
-				<c:out value="${logout}" />
-			</h2>
 
-			<form method="post" action="/login">
+			<h3 class="login-error">
+				<c:out value="${error}" />
+			</h3>
+			<h3 class="login-logout">
+				<c:out value="${logout}" />
+			</h3>
+
+			<form method="post" action="/login" class="login-form">
 				<table>
 					<tr>
 						<td>아이디</td>
-						<td><input type="text" name="username"></td>
+						<td><input type="text" name="username" class="input-field"></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>
-						<td><input type="password" name="password"></td>
+						<td><input type="password" name="password" class="input-field"></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="checkbox" name="remember-me"> <spring:message
-								code="auth.rememberMe" /></td>
+						<td>
+							<input type="checkbox" name="remember-me" id="remember-me">
+							<label for="remember-me"><spring:message code="auth.rememberMe" /></label>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center">
-							<button>
+							<button type="submit" class="login-button">
 								<spring:message code="action.login" />
 							</button>
 						</td>
@@ -59,7 +64,6 @@
 			</form>
 		</div>
 	</div>
-
 
 </body>
 </html>

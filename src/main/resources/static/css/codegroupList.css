@@ -1,0 +1,88 @@
+body {
+    font-family: 'Noto Sans', 'Helvetica', 'Arial', sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container-center {
+    width: 90%;
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+.card {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1a73e8;
+}
+
+.top-action {
+    margin-bottom: 15px;
+    text-align: right;
+}
+
+.btn-primary {
+    background-color: #1a73e8;
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #155ec4;
+}
+
+.small-btn {
+    font-size: 17px;
+    padding: 4px 10px;
+}
+
+.green-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.green-table th, .green-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+.green-table th {
+    background-color: #f5f7fa;
+    color: #333;
+    font-weight: 600;
+}
+
+.green-table tr:hover {
+    background-color: #f1f4f8;
+}
+
+.table-link {
+    color: #1a73e8;
+    text-decoration: none;
+}
+
+.table-link:hover {
+    text-decoration: underline;
+}
+
+.empty-message {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}

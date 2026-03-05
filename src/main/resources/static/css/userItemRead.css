@@ -1,0 +1,146 @@
+/* ===== userItemRead.css ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue-primary: #1a6fdb;
+  --blue-dark:    #0d4fa8;
+  --blue-light:   #eef4ff;
+  --blue-mid:     #a8c8f5;
+  --black:        #111827;
+  --gray-dark:    #374151;
+  --gray-mid:     #6b7280;
+  --gray-line:    #e5edf8;
+  --gray-bg:      #f3f7ff;
+  --label-bg:     #f5f8ff;
+  --white:        #ffffff;
+  --border:       #d6e4f7;
+}
+
+body.page-body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--gray-bg);
+  color: var(--black);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-center {
+  flex: 1;
+  max-width: 680px;
+  margin: 48px auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+.card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(26, 111, 219, 0.07);
+  overflow: hidden;
+}
+
+.card-item-detail {
+  padding: 36px 40px 40px;
+  position: relative;
+}
+
+.card-item-detail::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue-primary), var(--blue-mid));
+  border-radius: 12px 12px 0 0;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--black);
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--blue-primary);
+  letter-spacing: -0.2px;
+}
+
+/* ===== 디테일 테이블 ===== */
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.detail-table tr {
+  border-bottom: 1px solid var(--gray-line);
+}
+
+.detail-table tr:last-child {
+  border-bottom: none;
+}
+
+.detail-table td {
+  padding: 14px 16px;
+  vertical-align: middle;
+  color: var(--gray-dark);
+}
+
+.detail-table td.label {
+  width: 130px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  background: var(--label-bg);
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.detail-table input[type="text"],
+.detail-table textarea {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13.5px;
+  color: var(--gray-dark);
+  background: var(--label-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 5px;
+  padding: 7px 12px;
+  outline: none;
+  width: 100%;
+  resize: none;
+  cursor: default;
+}
+
+.detail-table img {
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  display: block;
+  max-width: 100%;
+}
+
+/* ===== 버튼 그룹 ===== */
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-secondary {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--blue-primary);
+  background: var(--white);
+  border: 1.5px solid var(--blue-primary);
+  border-radius: 6px;
+  padding: 9px 28px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-secondary:hover {
+  background: var(--blue-light);
+  color: var(--blue-dark);
+}

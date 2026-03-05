@@ -2,87 +2,67 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/css/codedetail.css">
-<title>Image Shop</title>
+<link rel="stylesheet" href="/css/noticeList.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/menu.css">
+<title>공지사항 목록</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body>
+<body class="notice-body">
+
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
-	<main align="center">
-		<h2>
-			<spring:message code="notice.header.list" />
-		</h2>
 
-		<%-- 검색 폼을 만든다. 
-		<form:form modelAttribute="pgrq" method="get"
-			action="/notice/list${pgrq.toUriStringByPage()}">
-			<form:select path="searchType" items="${searchTypeCodeValueList}"
-				itemValue="value" itemLabel="label" />
-			<form:input path="keyword" />
-			<button id='searchBtn'>
-				<spring:message code="action.search" />
-			</button>
-		</form:form>
-		--%>
+	<main class="notice-container">
+		<div class="notice-card">
 
+			<h2 class="notice-title">
+				<spring:message code="notice.header.list" />
+			</h2>
 
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<a href="/notice/register" class="notice-new-btn"><spring:message code="action.new" /></a>
+			</sec:authorize>
 
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<a href="/notice/register"><spring:message code="action.new" /></a>
-		</sec:authorize>
-
-		<table border="1">
-			<tr>
-				<th align="center" width="80"><spring:message code="notice.no" /></th>
-				<th align="center" width="320"><spring:message
-						code="notice.title" /></th>
-				<th align="center" width="180"><spring:message
-						code="notice.regdate" /></th>
-			</tr>
-			<c:choose>
-				<c:when test="${empty list}">
-					<tr>
-						<td colspan="3"><spring:message code="common.listEmpty" /></td>
-					</tr>
-				</c:when>
-				<c:otherwise>
-					<c:forEach items="${list}" var="notice">
+			<table class="notice-table">
+				<tr>
+					<th width="80"><spring:message code="notice.no" /></th>
+					<th width="320"><spring:message code="notice.title" /></th>
+					<th width="180"><spring:message code="notice.regdate" /></th>
+				</tr>
+				<c:choose>
+					<c:when test="${empty list}">
 						<tr>
-							<td align="center">${notice.noticeNo}</td>
-							<td align="left"><a
-								href="/notice/read?noticeNo=${notice.noticeNo}"><c:out
-										value="${notice.title}" /></a></td>
-							<td align="center"><fmt:formatDate
-									pattern="yyyy-MM-dd HH:mm" value="${notice.regDate}" /></td>
+							<td colspan="3" class="notice-empty"><spring:message code="common.listEmpty" /></td>
 						</tr>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-		</table>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${list}" var="notice">
+							<tr>
+								<td align="center">${notice.noticeNo}</td>
+								<td align="left"><a href="/notice/read?noticeNo=${notice.noticeNo}">${notice.title}</a></td>
+								<td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${notice.regDate}" /></td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</table>
 
-
-
-		<%-- 페이징 네비게이션
-		
-			공지사항은 페이징 기법 적용 안 해서 안 넣음
-		 --%>
-		
+		</div>
 	</main>
+
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+
 	<script>
 		var result = "${msg}";
 		if (result === "SUCCESS") {
-			alert("처리 완료!!");
+			alert("성공적으로 완료되었습니다.");
 		}
 	</script>
 </body>

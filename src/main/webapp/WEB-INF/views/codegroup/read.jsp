@@ -8,7 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>CodeGroup Detail</title>
-<link rel="stylesheet" href="/css/green-theme.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/menu.css">
+<link rel="stylesheet" href="/css/codegroupRead.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -65,7 +67,6 @@
 		</div>
 	</div>
 
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 <script>
 $(document).ready(function() {

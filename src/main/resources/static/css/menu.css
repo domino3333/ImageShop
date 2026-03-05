@@ -1,13 +1,59 @@
-body {
-  background-color: lightblue;
+/* ===== menu.css ===== */
+
+/* ── Menu Wrapper ── */
+.menu-wrapper {
+  background: #1565C0;
+  border-bottom: 2px solid #0D47A1;
 }
 
-h1 {
-  color: white;
-  text-align: center;
+.menu-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  height: 46px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-p {
-  font-family: verdana;
-  font-size: 20px;
+.menu-inner::-webkit-scrollbar { display: none; }
+
+/* tr/td 레이아웃 초기화 (기존 구조 유지) */
+.menu-inner tr {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.menu-inner td {
+  display: block;
+  width: auto !important;
+}
+
+/* ── Menu Item ── */
+.menu-item {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: .85rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.85);
+  text-decoration: none;
+  display: block;
+  padding: 0 18px;
+  height: 46px;
+  line-height: 46px;
+  white-space: nowrap;
+  transition: background .18s, color .18s;
+  letter-spacing: .2px;
+}
+
+.menu-item:hover {
+  background: rgba(255,255,255,.12);
+  color: #FFFFFF;
+}
+
+/* 첫 번째(Home) 메뉴 강조 */
+.menu-inner td:first-child .menu-item {
+  font-weight: 700;
+  color: #FFFFFF;
 }

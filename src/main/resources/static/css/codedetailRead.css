@@ -1,0 +1,107 @@
+/* ===== 전체 바디 ===== */
+body.codedetail-body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Pretendard', sans-serif;
+    background-color: #f4f8ff;
+    color: #222;
+}
+
+/* ===== 컨테이너 ===== */
+.container-center {
+    width: 90%;
+    max-width: 700px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+/* ===== 카드 ===== */
+.card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,80,200,0.08);
+}
+
+/* ===== 페이지 제목 ===== */
+.page-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a73e8;
+    margin-bottom: 25px;
+}
+
+/* ===== 폼 행 ===== */
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-label {
+    width: 120px;
+    text-align: right;
+    margin-right: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.form-input {
+    flex: 1;
+}
+
+.form-input input, .form-input select {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #c5d0e6;
+    border-radius: 4px;
+    background-color: #fdfdfd;
+    font-size: 14px;
+    color: #222;
+}
+
+.form-input input[readonly], .form-input select[disabled] {
+    background-color: #eef3fc;
+    color: #555;
+}
+
+/* ===== 에러 메시지 ===== */
+.form-error {
+    width: 120px;
+    margin-left: 15px;
+    color: red;
+    font-size: 13px;
+}
+
+/* ===== 버튼 그룹 ===== */
+.button-group {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 6px 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.btn-primary {
+    background-color: #1a73e8;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #155ec4;
+}
+
+.btn-secondary {
+    background-color: #f5f5f5;
+    color: #222;
+    border: 1px solid #c5c5c5;
+}
+
+.btn-secondary:hover {
+    background-color: #e0e0e0;
+}
