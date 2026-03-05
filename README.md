@@ -60,7 +60,7 @@ Java, jsp, MyBatis를 이용하여 구현한 **CRUD 기반 웹페이지**입니�
 ![db구조](images/dbArchitecture.svg)
 
 
-```
+
 ## 📸 실행 화면
 
 ### 🏠 게시판 메인 화면
