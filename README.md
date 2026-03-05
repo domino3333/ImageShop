@@ -64,13 +64,13 @@ Java, jsp, MyBatis를 이용하여 구현한 **CRUD 기반 웹페이지**입니�
 ## 📸 실행 화면
 
 ### 🏠 게시판 메인 화면
-![메인 화면](images/boardMain.png)
+![메인 화면](images/boardMain.PNG)
 
 ### 📋 이미지 구매 화면
-![회원 목록](images/purchase.png)
+![회원 목록](images/purchase.PNG)
 
 ### 👤 관리자가 상품을 추가하는 화면
-![회원 상세](images/adminAdd.png)
+![회원 상세](images/adminAdd.PNG)
 
 
 
