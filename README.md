@@ -69,6 +69,6 @@ Java, jsp, MyBatis를 이용하여 구현한 **CRUD 기반 웹페이지**입니�
 ### 📋 이미지 구매 화면
 ![회원 목록](images/purchase.PNG)
 
-### 👤 관리자가 상품을 추가하는 화면
+### 👤 관리자의 상품추가 화면
 ![회원 상세](images/adminAdd.PNG)
 
